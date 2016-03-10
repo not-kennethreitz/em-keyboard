@@ -26,6 +26,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 import json
 import fnmatch
 
+import xerox
 from docopt import docopt
 
 
@@ -65,9 +66,10 @@ def do_list(lookup, aliases, term):
 
 def cli():
     arguments = docopt(__doc__)
-    # print(arguments)
+    print(arguments)
 
     names = arguments['<name>']
+    no_copy = arguments['--no-copy']
 
     if arguments['add']:
         arguments['<charecter>']
@@ -77,7 +79,12 @@ def cli():
     aliases = parse_aliases(lookup)
 
     results = translate(lookup, aliases, names)
-    print(' '.join(results))
+    results = ' '.join(results)
+
+    print(results)
+
+    if not no_copy:
+        xerox.copy(results)
 
 if __name__ == '__main__':
     cli()
