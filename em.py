@@ -23,8 +23,8 @@ Notes:
 
 from __future__ import absolute_import, print_function, unicode_literals
 
-import sys
 import json
+import fnmatch
 
 from docopt import docopt
 
@@ -40,9 +40,10 @@ def parse_aliases(lookup, filename='aliases.json'):
 
     return {k: [lookup[c] for c in v.split()] for k, v in data.iteritems()}
 
+
 def translate(lookup, aliases, codes):
     output = []
-    for code in sys.argv[1:]:
+    for code in codes:
         if code[0] == ':' and code[-1] == ':':
             code = code[1:-1]
 
@@ -54,12 +55,19 @@ def translate(lookup, aliases, codes):
     return output
 
 
+def do_list(lookup, aliases, term):
+    space = lookup.keys() + aliases.keys()
+
+    matches = fnmatch.filter(space, term)
+
+    return [(m, translate(lookup, aliases, [m])) for m in matches]
+
+
 def cli():
     arguments = docopt(__doc__)
     # print(arguments)
 
     names = arguments['<name>']
-
 
     if arguments['add']:
         arguments['<charecter>']
