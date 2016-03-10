@@ -10,7 +10,7 @@ def main():
     lookup = parse_emojis()
     aliases = parse_aliases(lookup)
 
-    output = do_list(lookup, aliases, sys.argv[1])
+    output = do_find(lookup, aliases, sys.argv[1])
     for name, emoji in output:
         print('{} : {}'.format(' '.join(emoji), name))
 

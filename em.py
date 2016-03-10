@@ -25,15 +25,13 @@ from __future__ import absolute_import, print_function, unicode_literals
 
 import json
 import fnmatch
+from collections import defaultdict
 
 from docopt import docopt
 
 
 def parse_emojis(filename='emojis.json'):
-    data = json.load(open(filename))
-
-    return {k: v['char'] for k, v in data.iteritems()}
-
+    return json.load(open(filename))
 
 def parse_aliases(lookup, filename='aliases.json'):
     data = json.load(open(filename))
@@ -50,7 +48,7 @@ def translate(lookup, aliases, codes):
         if code in aliases:
             output.extend(aliases[code])
         else:
-            output.append(lookup[code])
+            output.append(lookup[code]['char'])
 
     return output
 
@@ -61,6 +59,29 @@ def do_list(lookup, aliases, term):
     matches = fnmatch.filter(space, term)
 
     return [(m, translate(lookup, aliases, [m])) for m in matches]
+
+
+def do_find(lookup, aliases, term):
+    space = defaultdict(list)
+
+    for name in lookup.keys():
+        space[name].append(name)
+
+    for name, definition in lookup.iteritems():
+        for keyword in definition['keywords']:
+            space[keyword].append(name)
+        space[definition['category']].append(name)
+
+    for name in aliases.keys():
+        space[name].append(name)
+
+    matches = fnmatch.filter(space.keys(), term)
+
+    results = set()
+    for match in matches:
+        results.update(space[match])
+
+    return [(r, translate(lookup, aliases, [r])) for r in results]
 
 
 def cli():
