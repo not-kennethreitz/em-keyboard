@@ -40,20 +40,17 @@ def parse_emojis(filename='emojis.json'):
 def parse_aliases(lookup, filename='aliases.json'):
     data = json.load(open(filename))
 
-    return {k: [lookup[c] for c in v.split()] for k, v in data.iteritems()}
+    return {k: v.split() for k, v in data.iteritems()}
 
 
 def translate(lookup, aliases, code):
-    output = []
     if code[0] == ':' and code[-1] == ':':
         code = code[1:-1]
 
-    if code in aliases:
-        output.extend(aliases[code])
-    else:
-        output.append(lookup.get(code, {'char': None})['char'])
+    output = [code] if code not in aliases else aliases[code]
 
-    return output
+    for name in output:
+        yield None if name not in lookup else lookup[name]['char']
 
 
 def do_list(lookup, aliases, term):
