@@ -10,11 +10,11 @@ from setuptools import setup
 if sys.argv[-1] == 'publish':
     os.system('python setup.py register')
     os.system('python setup.py sdist upload')
-    os.system('python setup.py bdist_wheel upload --universal')
+    # os.system('python setup.py bdist_wheel upload --universal')
     sys.exit()
 
 requires = ['docopt', 'xerox']
-version = '0.0.5'
+version = '0.0.7'
 
 
 def read(f):

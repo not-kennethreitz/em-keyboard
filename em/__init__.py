@@ -121,7 +121,7 @@ def cli():
         for (n, v) in found:
             # Some registered emoji have no value.
             try:
-                print(u'{}  {}'.format(' '.join(v), n))
+                print(u'{0}  {1}'.format(' '.join(v), n))
             # Sometimes, an emoji will have no value.
             except TypeError:
                 pass
@@ -144,7 +144,7 @@ def cli():
     # Copy the results (and say so!) to the clipboard.
     if not no_copy and not missing:
         xerox.copy(results)
-        print(u'Copied! {}'.format(print_results))
+        print(u'Copied! {0}'.format(print_results))
 
     # Script-kiddies.
     else:
