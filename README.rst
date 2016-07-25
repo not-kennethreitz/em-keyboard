@@ -20,7 +20,7 @@ Example Usage
 Let's serve some delicious cake::
 
     $ em sparkles cake sparkles
-    Copied: ✨🍰✨
+    Copied! ✨🍰✨
 
 
 Let's skip the copying (for scripts)::
