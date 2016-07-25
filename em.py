@@ -19,11 +19,11 @@ Notes:
     automatically added to your clipboard.
 """
 
-from collections import defaultdict
-import json
 import fnmatch
 import itertools
+import json
 import sys
+from collections import defaultdict
 
 import xerox
 from docopt import docopt
@@ -75,8 +75,8 @@ def do_find(lookup, term):
 
 
 def cli():
+    # CLI argument parsing.
     arguments = docopt(__doc__)
-
     names = arguments['<name>']
     no_copy = arguments['--no-copy']
 
