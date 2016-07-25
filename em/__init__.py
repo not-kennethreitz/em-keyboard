@@ -71,21 +71,21 @@ def do_find(lookup, term):
         space[name].append(name)
 
     for name, definition in lookup.iteritems():
-    try:
-        iter_lookup = lookup.iteritems()  # Python 2
-    except AttributeError:
-        iter_lookup = lookup.items()  # Python 3
+        try:
+            iter_lookup = lookup.iteritems()  # Python 2
+        except AttributeError:
+            iter_lookup = lookup.items()  # Python 3
 
-    for name, definition in iter_lookup:
-        for keyword in definition['keywords']:
-            space[keyword].append(name)
-        space[definition['category']].append(name)
+        for name, definition in iter_lookup:
+            for keyword in definition['keywords']:
+                space[keyword].append(name)
+            space[definition['category']].append(name)
 
-    matches = fnmatch.filter(space.keys(), term)
+        matches = fnmatch.filter(space.keys(), term)
 
-    results = set()
-    for match in matches:
-        results.update(space[match])
+        results = set()
+        for match in matches:
+            results.update(space[match])
 
     return [(r, translate(lookup, r)) for r in results]
 
