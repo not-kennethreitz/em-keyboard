@@ -70,7 +70,6 @@ def do_find(lookup, term):
     for name in lookup.keys():
         space[name].append(name)
 
-    for name, definition in lookup.iteritems():
     try:
         iter_lookup = lookup.iteritems()  # Python 2
     except AttributeError:
@@ -127,7 +126,7 @@ def cli():
             except TypeError:
                 pass
 
-        sys.exit(0)
+        return sys.exit(0)
 
     # Process the results.
     results = (translate(lookup, name) for name in names)

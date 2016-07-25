@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-import re
 import sys
 from codecs import open
 
@@ -17,6 +16,7 @@ if sys.argv[-1] == 'publish':
 requires = ['docopt', 'xerox']
 version = '0.0.5'
 
+
 def read(f):
     return open(f, encoding='utf-8').read()
 
@@ -29,9 +29,9 @@ setup(
     author_email='me@kennethreitz.org',
     url='https://github.com/kennethreitz/em',
     packages=['em'],
-    package_data={'': ['LICENSE', 'NOTICE'], 'em': ['emojis.json',]},
+    package_data={'': ['LICENSE', 'NOTICE'], 'em': ['emojis.json', ]},
     include_package_data=True,
-    entry_points = {
+    entry_points={
         'console_scripts': ['em=em:cli'],
     },
     install_requires=requires,
@@ -43,7 +43,6 @@ setup(
         'Natural Language :: English',
         'License :: OSI Approved :: ISC License (ISCL)',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',

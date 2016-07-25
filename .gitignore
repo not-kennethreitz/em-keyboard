@@ -1,1 +1,4 @@
 *.pyc
+.python-version
+.tox/
+em_keyboard.egg-info/
