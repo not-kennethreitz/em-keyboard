@@ -29,7 +29,7 @@ setup(
     author_email='me@kennethreitz.org',
     url='https://github.com/kennethreitz/em',
     packages=['em'],
-    package_data={'': ['LICENSE',], 'em': ['emojis.json',]},
+    package_data={'': ['LICENSE', 'NOTICE'], 'em': ['emojis.json',]},
     include_package_data=True,
     entry_points = {
         'console_scripts': ['em=em:cli'],
