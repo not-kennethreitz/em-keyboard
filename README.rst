@@ -1,6 +1,8 @@
 em: the cli emoji keyboard™
 ===========================
 
+Emoji your friends and coulleages from the comfort of your own terminal.
+
 **em** is a nifty command-line utility for referencing emoji charecters
 by name. Provide the names of a few emoji, and "emojified" string
 will be displayed in your terminal, then copied to your clipboard,
@@ -36,8 +38,18 @@ Let's find some emoji, by color::
     👹  japanese_ogre
     👺  japanese_goblin
 
-Enjoy!
-------
+Installation
+------------
+
+At this time, **em** requires Python and pip::
+
+    $ pip instsall em
+
+That's it!
+
+
+Have fun!
+---------
 
 ✨🍰✨
 
