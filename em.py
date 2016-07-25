@@ -24,6 +24,8 @@ Notes:
   - ✨ 🍰 ✨  (sparkles cake sparkles)
 """
 
+from __future__ import print_function
+
 import fnmatch
 import itertools
 import json
@@ -113,11 +115,11 @@ def cli():
         # print them to the screen.
         for (n, v) in found:
             # Some registered emoji have no value.
-                try:
-                    print u'{}  {}'.format(' '.join(v), n)
-                # Sometimes, an emoji will have no value.
-                except TypeError:
-                    pass
+            try:
+                print(u'{}  {}'.format(' '.join(v), n))
+            # Sometimes, an emoji will have no value.
+            except TypeError:
+                pass
 
         sys.exit(0)
 
@@ -137,7 +139,7 @@ def cli():
     # Copy the results (and say so!) to the clipboard.
     if not no_copy and not missing:
         xerox.copy(results)
-        print u'Copied! {}'.format(print_results)
+        print(u'Copied! {}'.format(print_results))
 
     # Script-kiddies.
     else:
