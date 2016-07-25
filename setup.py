@@ -15,7 +15,7 @@ if sys.argv[-1] == 'publish':
     sys.exit()
 
 requires = ['docopt', 'xerox']
-version = '0.0.4'
+version = '0.0.5'
 
 def read(f):
     return open(f, encoding='utf-8').read()
