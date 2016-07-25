@@ -30,6 +30,7 @@ import fnmatch
 import itertools
 import json
 import os
+import re
 import sys
 from collections import defaultdict
 
@@ -84,21 +85,17 @@ def do_find(lookup, term):
     return [(r, translate(lookup, r)) for r in results]
 
 
+def clean_name(name):
+    """Clean emoji name replacing specials chars by underscore"""
+    special_chars = '[-. ]'  # square brackets are part of the regex
+    return re.sub(special_chars, '_', name)
+
+
 def cli():
     # CLI argument parsing.
     arguments = docopt(__doc__)
-    names = arguments['<name>']
+    names = tuple(map(clean_name, arguments['<name>']))
     no_copy = arguments['--no-copy']
-
-    # Cleanup input names, to humanize things.
-    for i, name in enumerate(names):
-        # Replace -/ /. with _.
-        name = name.replace('-', '_')
-        name = name.replace(' ', '_')
-        name = name.replace('.', '_')
-
-        # Over-write original name.
-        names[i] = name
 
     # Marker for if the given emoji isn't found.
     missing = False
