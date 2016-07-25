@@ -23,8 +23,8 @@ def read(f):
 setup(
     name='em',
     version=version,
-    description='The Technicolor Emoji CLI Eperience™',
-    long_description=read('README.rst') + '\n\n' + read('HISTORY.rst'),
+    description='The Technicolor Emoji CLI Eperience',
+    long_description=read('README.rst'),
     author='Kenneth Reitz',
     author_email='me@kennethreitz.org',
     url='https://github.com/kennethreitz/em',
