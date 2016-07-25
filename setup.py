@@ -15,7 +15,7 @@ if sys.argv[-1] == 'publish':
     sys.exit()
 
 requires = ['docopt', 'xerox']
-version = '0.0.3'
+version = '0.0.4'
 
 def read(f):
     return open(f, encoding='utf-8').read()
@@ -28,8 +28,8 @@ setup(
     author='Kenneth Reitz',
     author_email='me@kennethreitz.org',
     url='https://github.com/kennethreitz/em',
-    py_modules=['em'],
-    package_data={'': ['LICENSE', 'emojis.json']},
+    packages=['em'],
+    package_data={'': ['LICENSE', 'NOTICE'], 'em': ['emojis.json',]},
     include_package_data=True,
     entry_points = {
         'console_scripts': ['em=em:cli'],
