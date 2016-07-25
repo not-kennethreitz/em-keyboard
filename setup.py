@@ -21,7 +21,7 @@ def read(f):
     return open(f, encoding='utf-8').read()
 
 setup(
-    name='em',
+    name='em-keyboard',
     version=version,
     description='The CLI Emoji Keyboard',
     long_description=read('README.rst'),
