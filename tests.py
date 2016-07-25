@@ -63,4 +63,4 @@ class TestCli(TestCase):
         cli()
         mock_xerox.assert_not_called()
         for arg in expected:
-            self.assertIn(call(arg), mock_print.call_args_list)
+            self.assertTrue(call(arg) in mock_print.call_args_list)
