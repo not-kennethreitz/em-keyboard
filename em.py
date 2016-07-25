@@ -95,7 +95,6 @@ def do_find(lookup, aliases, term):
 
 def cli():
     arguments = docopt(__doc__)
-#    print(arguments)
 
     names = arguments['<name>']
     no_copy = arguments['--no-copy']
@@ -117,8 +116,10 @@ def cli():
         missing = True
         results = (r for r in results if r)
 
-    results = ' '.join(results)
-    print(results)
+    print_results = ' '.join(results)
+    results = ''.join(results)
+
+    print(print_results)
 
     if not no_copy and not missing:
         xerox.copy(results)
