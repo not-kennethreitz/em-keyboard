@@ -1,7 +1,7 @@
 em: the cli emoji keyboard™
 ===========================
 
-***Emoji your friends and coulleages from the comfort of your own terminal.***
+**Emoji your friends and coulleages from the comfort of your own terminal.**
 
 **em** is a nifty command-line utility for referencing emoji charecters
 by name. Provide the names of a few emoji, and "emojified" string
