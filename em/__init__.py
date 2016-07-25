@@ -71,6 +71,12 @@ def do_find(lookup, term):
         space[name].append(name)
 
     for name, definition in lookup.iteritems():
+    try:
+        iter_lookup = lookup.iteritems()  # Python 2
+    except AttributeError:
+        iter_lookup = lookup.items()  # Python 3
+
+    for name, definition in iter_lookup:
         for keyword in definition['keywords']:
             space[keyword].append(name)
         space[definition['category']].append(name)
