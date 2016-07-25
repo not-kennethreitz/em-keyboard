@@ -27,14 +27,17 @@ Notes:
 import fnmatch
 import itertools
 import json
+import os
 import sys
 from collections import defaultdict
 
 import xerox
 from docopt import docopt
 
+EMOJI_PATH = os.path.join(os.path.dirname(__file__), 'emojis.json')
 
-def parse_emojis(filename='emojis.json'):
+
+def parse_emojis(filename=EMOJI_PATH):
     return json.load(open(filename))
 
 
