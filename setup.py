@@ -23,7 +23,7 @@ def read(f):
 setup(
     name='em',
     version=version,
-    description='The Technicolor Emoji CLI Eperience',
+    description='The CLI Emoji Keyboard',
     long_description=read('README.rst'),
     author='Kenneth Reitz',
     author_email='me@kennethreitz.org',

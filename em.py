@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""em: the technicolor cli emoji experience™
+"""em: the technicolor cli emoji keyboard™
 
 Usage:
   em <name>... [--no-copy]
@@ -21,6 +21,7 @@ Examples:
 Notes:
   - If all names provided map to emojis, the resulting emojis will be
     automatically added to your clipboard.
+  - ✨ 🍰 ✨  (sparkles cake sparkles)
 """
 
 import fnmatch
@@ -84,6 +85,16 @@ def cli():
     names = arguments['<name>']
     no_copy = arguments['--no-copy']
 
+    # Cleanup input names, to humanize things.
+    for i, name in enumerate(names):
+        # Replace -/ /. with _.
+        name = name.replace('-', '_')
+        name = name.replace(' ', '_')
+        name = name.replace('.', '_')
+
+        # Over-write original name.
+        names[i] = name
+
     # Marker for if the given emoji isn't found.
     missing = False
 
@@ -98,7 +109,12 @@ def cli():
 
         # print them to the screen.
         for (n, v) in found:
-            print u'{}  {}'.format(' '.join(v), n)
+            # Some registered emoji have no value.
+                try:
+                    print u'{}  {}'.format(' '.join(v), n)
+                # Sometimes, an emoji will have no value.
+                except TypeError:
+                    pass
 
         sys.exit(0)
 
