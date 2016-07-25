@@ -41,7 +41,7 @@ Installation
 
 At this time, **em** requires Python and pip::
 
-    $ pip instsall em-keyboard
+    $ pip install em-keyboard
 
 That's it!
 
