@@ -4,8 +4,10 @@
 
 Usage:
   em <name>... [--no-copy]
+  em -s <name>...
 
 Options:
+  -s            Search for emoji.
   -h --help     Show this screen.
   --no-copy     Does not copy emoji to clipboard.
 
@@ -13,6 +15,8 @@ Examples:
 
   $ em sparkle cake sparkles
   $ em heart
+
+  $ em -s food
 
 Notes:
   - If all names provided map to emojis, the resulting emojis will be
@@ -85,6 +89,18 @@ def cli():
 
     # Grab the lookup dictionary.
     lookup = parse_emojis()
+
+    # Search mode.
+    if arguments['-s']:
+
+        # Lookup the search term.
+        found = do_find(lookup, names[0])
+
+        # print them to the screen.
+        for (n, v) in found:
+            print u'{}  {}'.format(' '.join(v), n)
+
+        sys.exit(0)
 
     # Process the results.
     results = (translate(lookup, name) for name in names)
