@@ -3,7 +3,7 @@ em: the cli emoji keyboard™
 
 **Emoji your friends and colleagues from the comfort of your own terminal.**
 
-**em** is a nifty command-line utility for referencing emoji charecters
+**em** is a nifty command-line utility for referencing emoji characters
 by name. Provide the names of a few emoji, and those lucky chosen emojis
 will be displayed in your terminal, then copied to your clipboard.
 Automagically.
