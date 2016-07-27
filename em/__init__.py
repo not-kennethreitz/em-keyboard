@@ -70,7 +70,7 @@ def do_find(lookup, term):
     for name in lookup.keys():
         space[name].append(name)
 
-    for name, definition in lookup.iteritems():
+    for name, definition in lookup.items():
         try:
             iter_lookup = lookup.iteritems()  # Python 2
         except AttributeError:
