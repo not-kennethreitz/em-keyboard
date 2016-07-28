@@ -36,6 +36,18 @@ Let's find some emoji, by color::
     👹  japanese_ogre
     👺  japanese_goblin
 
+Let's get a random emoji::
+
+    $ em -r
+    Chosen: dress
+    Copied! 👗
+
+Or if you need more than one random emoji::
+
+    em -r 3
+    Chosen: fries taurus ve
+    Copied! 🍟 ♉ 🇻🇪
+
 Installation
 ------------
 
