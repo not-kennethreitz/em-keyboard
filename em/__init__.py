@@ -5,9 +5,11 @@
 Usage:
   em <name>... [--no-copy]
   em -s <name>...
+  em -r [--no-copy] [<count>]
 
 Options:
   -s            Search for emoji.
+  -r            Emit random emoji.
   -h --help     Show this screen.
   --no-copy     Does not copy emoji to clipboard.
 
@@ -17,6 +19,9 @@ Examples:
   $ em heart
 
   $ em -s food
+
+  $ em -r       # Emit 1 random emoji
+  $ em -r 12    # Emit 12 random emoji
 
 Notes:
   - If all names provided map to emojis, the resulting emojis will be
@@ -30,6 +35,7 @@ import fnmatch
 import itertools
 import json
 import os
+import random
 import sys
 from collections import defaultdict
 
@@ -93,6 +99,7 @@ def cli():
     # CLI argument parsing.
     arguments = docopt(__doc__)
     names = arguments['<name>']
+    count = arguments['<count>']
     no_copy = arguments['--no-copy']
 
     # Cleanup input names, to humanize things.
@@ -128,11 +135,14 @@ def cli():
 
         sys.exit(0)
 
+    if arguments['-r']:
+        names = random.sample(lookup.keys(), int(count or 1))
+        print(u'Chosen: {}'.format(u' '.join(names)))
+
     # Process the results.
     results = (translate(lookup, name) for name in names)
-    results = list(itertools.chain.from_iterable(results))
-
-    if None in results:
+    results = list(result for result in itertools.chain.from_iterable(results) if result is not None)
+    if not results:
         no_copy = True
         missing = True
         results = (r for r in results if r)
