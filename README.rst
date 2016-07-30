@@ -43,6 +43,8 @@ At this time, **em** requires Python and pip::
 
     $ pip install em-keyboard
 
+Running this command will also install the Python package Xerox, which may have dependencies on your system. See https://github.com/kennethreitz/xerox for more information. 
+
 That's it!
 
 
