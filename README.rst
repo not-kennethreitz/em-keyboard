@@ -39,7 +39,7 @@ Let's find some emoji, by color::
 Installation
 ------------
 
-At this time, **em** requires Python and pip::
+At this time, **em** requires Python, pip and `xclip`::
 
     $ pip install em-keyboard
 
