@@ -38,9 +38,24 @@ from docopt import docopt
 
 EMOJI_PATH = os.path.join(os.path.dirname(__file__), 'emojis.json')
 
+_builtin_print = print
+
+
+def print(*args, **kwargs):
+    if sys.version_info[0] == 3:
+        return _builtin_print(*args, **kwargs)
+    # Encode the output
+    encoded_args = []
+    for v in args:
+        if isinstance(v, unicode):      # noqa: F821
+            encoded_args.append(v.encode('utf-8'))
+        else:
+            encoded_args.append(v)
+    return _builtin_print(*encoded_args, **kwargs)
+
 
 def parse_emojis(filename=EMOJI_PATH):
-    return json.load(open(filename))
+    return json.load(open(filename, 'rb'))
 
 
 def translate(lookup, code):
@@ -151,6 +166,7 @@ def cli():
         print(print_results)
 
     sys.exit(int(missing))
+
 
 if __name__ == '__main__':
     cli()
