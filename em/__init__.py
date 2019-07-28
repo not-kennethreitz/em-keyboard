@@ -38,6 +38,7 @@ import xerox
 from docopt import docopt
 
 EMOJI_PATH = os.path.join(os.path.dirname(__file__), 'emojis.json')
+CUSTOM_EMOJI_PATH = os.path.join(os.path.expanduser('~/.emojis.json'))
 
 
 def parse_emojis(filename=EMOJI_PATH):
@@ -107,6 +108,9 @@ def cli():
 
     # Grab the lookup dictionary.
     lookup = parse_emojis()
+
+    if os.path.isfile(CUSTOM_EMOJI_PATH):
+        lookup.update(parse_emojis(CUSTOM_EMOJI_PATH))
 
     # Search mode.
     if arguments['-s']:
