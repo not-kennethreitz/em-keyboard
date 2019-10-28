@@ -16,6 +16,7 @@ if sys.argv[-1] == 'publish':
 requires = ['docopt', 'xerox']
 version = '0.0.7'
 
+
 def read(f):
     return open(f, encoding='utf-8').read()
 
@@ -28,9 +29,9 @@ setup(
     author_email='inishchith@gmail.com',
     url='https://github.com/inishchith/em',
     packages=['em'],
-    package_data={'': ['LICENSE', 'NOTICE'], 'em': ['emojis.json',]},
+    package_data={'': ['LICENSE', 'NOTICE'], 'em': ['emojis.json', ]},
     include_package_data=True,
-    entry_points = {
+    entry_points={
         'console_scripts': ['em=em:cli'],
     },
     install_requires=requires,

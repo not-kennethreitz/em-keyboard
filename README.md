@@ -41,6 +41,13 @@ At this time, **em** requires Python and pip:
 
 That's it!
 
+## Tests
+
+If you wanna develop, you might want to write and run tests:
+
+    $ pip install tox
+    $ tox
+
 ## Have fun!
 
 ✨🍰✨
