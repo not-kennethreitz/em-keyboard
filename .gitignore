@@ -1,5 +1,22 @@
 *.pyc
-.python-version
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+pip-wheel-metadata/
 
 # Unit test / coverage reports
 *,cover
@@ -14,4 +31,4 @@ coverage.xml
 htmlcov/
 nosetests.xml
 
-em_keyboard.egg-info/
+.python-version
