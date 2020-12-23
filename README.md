@@ -5,7 +5,7 @@
 [![PyPI downloads](https://img.shields.io/pypi/dm/em-keyboard.svg)](https://pypistats.org/packages/em-keyboard)
 [![GitHub Actions status](https://github.com/hugovk/em-keyboard/workflows/Test/badge.svg)](https://github.com/hugovk/em-keyboard/actions)
 [![codecov](https://codecov.io/gh/hugovk/em-keyboard/branch/master/graph/badge.svg)](https://codecov.io/gh/hugovk/em-keyboard)
-[![GitHub](https://img.shields.io/github/license/hugovk/em-keyboard.svg)](LICENSE.txt)
+[![GitHub](https://img.shields.io/github/license/hugovk/em-keyboard.svg)](LICENSE)
 
 **Emoji your friends and colleagues from the comfort of your own
 terminal.**

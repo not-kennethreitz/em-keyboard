@@ -37,8 +37,8 @@ from collections import defaultdict
 import xerox
 from docopt import docopt
 
-EMOJI_PATH = os.path.join(os.path.dirname(__file__), 'emojis.json')
-CUSTOM_EMOJI_PATH = os.path.join(os.path.expanduser('~/.emojis.json'))
+EMOJI_PATH = os.path.join(os.path.dirname(__file__), "emojis.json")
+CUSTOM_EMOJI_PATH = os.path.join(os.path.expanduser("~/.emojis.json"))
 
 
 def parse_emojis(filename=EMOJI_PATH):
@@ -47,10 +47,10 @@ def parse_emojis(filename=EMOJI_PATH):
 
 def translate(lookup, code):
     output = []
-    if code[0] == ':' and code[-1] == ':':
+    if code[0] == ":" and code[-1] == ":":
         code = code[1:-1]
 
-    output.append(lookup.get(code, {'char': None})['char'])
+    output.append(lookup.get(code, {"char": None})["char"])
 
     return output
 
@@ -78,9 +78,9 @@ def do_find(lookup, term):
         iter_lookup = lookup.items()  # Python 3
 
     for name, definition in iter_lookup:
-        for keyword in definition['keywords']:
+        for keyword in definition["keywords"]:
             space[keyword].append(name)
-        space[definition['category']].append(name)
+        space[definition["category"]].append(name)
 
     matches = fnmatch.filter(space.keys(), term)
 
@@ -93,15 +93,15 @@ def do_find(lookup, term):
 
 def clean_name(name):
     """Clean emoji name replacing specials chars by underscore"""
-    special_chars = '[-. ]'  # square brackets are part of the regex
-    return re.sub(special_chars, '_', name)
+    special_chars = "[-. ]"  # square brackets are part of the regex
+    return re.sub(special_chars, "_", name)
 
 
 def cli():
     # CLI argument parsing.
     arguments = docopt(__doc__)
-    names = tuple(map(clean_name, arguments['<name>']))
-    no_copy = arguments['--no-copy']
+    names = tuple(map(clean_name, arguments["<name>"]))
+    no_copy = arguments["--no-copy"]
 
     # Marker for if the given emoji isn't found.
     missing = False
@@ -113,7 +113,7 @@ def cli():
         lookup.update(parse_emojis(CUSTOM_EMOJI_PATH))
 
     # Search mode.
-    if arguments['-s']:
+    if arguments["-s"]:
 
         # Lookup the search term.
         found = do_find(lookup, names[0])
@@ -122,7 +122,7 @@ def cli():
         for (n, v) in found:
             # Some registered emoji have no value.
             try:
-                print(u'{}  {}'.format(' '.join(v), n))
+                print(u"{}  {}".format(" ".join(v), n))
             # Sometimes, an emoji will have no value.
             except TypeError:
                 pass
@@ -139,13 +139,13 @@ def cli():
         results = (r for r in results if r)
 
     # Prepare the result strings.
-    print_results = ' '.join(results)
-    results = ''.join(results)
+    print_results = " ".join(results)
+    results = "".join(results)
 
     # Copy the results (and say so!) to the clipboard.
     if not no_copy and not missing:
         xerox.copy(results)
-        print(u'Copied! {}'.format(print_results))
+        print(u"Copied! {}".format(print_results))
 
     # Script-kiddies.
     else:
@@ -153,5 +153,6 @@ def cli():
 
     sys.exit(int(missing))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cli()
