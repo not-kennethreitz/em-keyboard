@@ -1,4 +1,17 @@
 *.pyc
 .python-version
+
+# Unit test / coverage reports
+*,cover
+.cache
+.coverage
+.coverage.*
+.hypothesis
+.mypy_cache
+.testmondata
 .tox/
+coverage.xml
+htmlcov/
+nosetests.xml
+
 em_keyboard.egg-info/
