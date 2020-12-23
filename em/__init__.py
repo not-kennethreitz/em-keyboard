@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """em: the technicolor cli emoji keyboard™
 
 Usage:
@@ -24,7 +22,6 @@ Notes:
   - ✨ 🍰 ✨  (sparkles cake sparkles)
 """
 
-from __future__ import print_function
 
 import fnmatch
 import itertools
@@ -122,7 +119,7 @@ def cli():
         for (n, v) in found:
             # Some registered emoji have no value.
             try:
-                print(u"{}  {}".format(" ".join(v), n))
+                print("{}  {}".format(" ".join(v), n))
             # Sometimes, an emoji will have no value.
             except TypeError:
                 pass
@@ -145,7 +142,7 @@ def cli():
     # Copy the results (and say so!) to the clipboard.
     if not no_copy and not missing:
         xerox.copy(results)
-        print(u"Copied! {}".format(print_results))
+        print(f"Copied! {print_results}")
 
     # Script-kiddies.
     else:
