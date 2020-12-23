@@ -21,27 +21,35 @@ Emoji can be also searched by both categories and aspects.
 
 Let's serve some delicious cake:
 
-    $ em sparkles cake sparkles
-    Copied! ✨🍰✨
+```console
+$ em sparkles cake sparkles
+Copied! ✨🍰✨
+```
 
 Let's skip the copying (for scripts):
 
-    $ em 'chocolate bar' --no-copy
-    🍫
+```console
+$ em 'chocolate bar' --no-copy
+🍫
+```
 
 Let's find some emoji, by color:
 
-    $ em -s red
-    🚗  car
-    🎴  flower_playing_cards
-    👹  japanese_ogre
-    👺  japanese_goblin
+```console
+$ em -s red
+🚗  car
+🎴  flower_playing_cards
+👹  japanese_ogre
+👺  japanese_goblin
+```
 
 ## Installation
 
 At this time, **em** requires Python and pip:
 
-    $ pip install em-keyboard
+```sh
+python3 -m pip install em-keyboard
+```
 
 That's it!
 
@@ -49,8 +57,10 @@ That's it!
 
 If you wanna develop, you might want to write and run tests:
 
-    $ pip install tox
-    $ tox
+```sh
+python3 -m pip install tox
+tox
+```
 
 ## Have fun!
 
