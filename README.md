@@ -17,9 +17,6 @@ Automagically.
 
 Emoji can be also searched by both categories and aspects.
 
-![Screenshot of em command-line
-interface.](http://f.cl.ly/items/0P3e11201W1o420O1N1S/Screen%20Shot%202016-07-25%20at%202.00.32%20AM.png)
-
 ## Example Usage
 
 Let's serve some delicious cake:
