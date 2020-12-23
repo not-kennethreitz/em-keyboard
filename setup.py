@@ -5,7 +5,11 @@ from setuptools import setup
 with open("README.md") as f:
     long_description = f.read()
 
-version = "0.0.7"
+
+def local_scheme(version):
+    """Skip the local version (eg. +xyz of 0.6.1.dev4+gdf99fe2)
+    to be able to upload to Test PyPI"""
+    return ""
 
 
 setup(
@@ -13,7 +17,6 @@ setup(
     description="The CLI Emoji Keyboard",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    version=version,
     author="Kenneth Reitz",
     author_email="me@kennethreitz.org",
     maintainer="Hugo van Kemenade",
@@ -30,6 +33,8 @@ setup(
     include_package_data=True,
     entry_points={"console_scripts": ["em=em:cli"]},
     zip_safe=False,
+    use_scm_version={"local_scheme": local_scheme},
+    setup_requires=["setuptools_scm"],
     install_requires=["docopt", "xerox"],
     extras_require={"tests": ["pytest", "pytest-cov"]},
     python_requires=">=3.6",
