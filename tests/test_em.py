@@ -1,14 +1,23 @@
 from unittest.mock import call, patch
 
+import pytest
+
 from em import cli
 
 
+@pytest.mark.parametrize(
+    "test_name",
+    [
+        "star",
+        ":star:",
+    ],
+)
 @patch("em.docopt")
 @patch("em.sys.exit")
 @patch("em.xerox.copy")
 @patch("builtins.print")
-def test_star(mock_print, mock_xerox, mock_exit, mock_docopt):
-    mock_docopt.return_value = {"<name>": ["star"], "--no-copy": None, "-s": None}
+def test_star(mock_print, mock_xerox, mock_exit, mock_docopt, test_name):
+    mock_docopt.return_value = {"<name>": [test_name], "--no-copy": None, "-s": None}
 
     cli()
     mock_xerox.assert_called_once_with("⭐")
