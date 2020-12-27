@@ -52,15 +52,6 @@ def translate(lookup, code):
     return output
 
 
-def do_list(lookup, term):
-    """Matches term glob against short-name."""
-
-    space = lookup.keys()
-    matches = fnmatch.filter(space, term)
-
-    return [(m, translate(lookup, m)) for m in matches]
-
-
 def do_find(lookup, term):
     """Matches term glob against short-name, keywords and categories."""
 
