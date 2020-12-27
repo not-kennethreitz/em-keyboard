@@ -28,6 +28,18 @@ def test_star(mock_print, mock_xerox, mock_exit, mock_docopt, test_name):
 @patch("em.sys.exit")
 @patch("em.xerox.copy")
 @patch("builtins.print")
+def test_not_found(mock_print, mock_xerox, mock_exit, mock_docopt):
+    mock_docopt.return_value = {"<name>": ["xxx"], "--no-copy": None, "-s": None}
+
+    cli()
+    mock_xerox.assert_not_called()
+    mock_print.assert_called_once_with("")
+
+
+@patch("em.docopt")
+@patch("em.sys.exit")
+@patch("em.xerox.copy")
+@patch("builtins.print")
 def test_no_copy(mock_print, mock_xerox, mock_exit, mock_docopt):
     mock_docopt.return_value = {"<name>": ["star"], "--no-copy": True, "-s": None}
 
