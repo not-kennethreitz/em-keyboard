@@ -31,8 +31,12 @@ import re
 import sys
 from collections import defaultdict
 
-import xerox
 from docopt import docopt
+
+try:
+    import xerox
+except ImportError:
+    xerox = None
 
 EMOJI_PATH = os.path.join(os.path.dirname(__file__), "emojis.json")
 CUSTOM_EMOJI_PATH = os.path.join(os.path.expanduser("~/.emojis.json"))
@@ -126,7 +130,7 @@ def cli():
     results = "".join(results)
 
     # Copy the results (and say so!) to the clipboard.
-    if not no_copy and not missing:
+    if xerox and not no_copy and not missing:
         xerox.copy(results)
         print(f"Copied! {print_results}")
 
