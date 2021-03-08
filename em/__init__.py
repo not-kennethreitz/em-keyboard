@@ -39,7 +39,7 @@ CUSTOM_EMOJI_PATH = os.path.join(os.path.expanduser("~/.emojis.json"))
 
 
 def parse_emojis(filename=EMOJI_PATH):
-    return json.load(open(filename))
+    return json.load(open(filename, encoding="utf-8"))
 
 
 def translate(lookup, code):
