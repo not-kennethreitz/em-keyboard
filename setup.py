@@ -2,7 +2,7 @@ from codecs import open
 
 from setuptools import setup
 
-with open("README.md") as f:
+with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
 
 
@@ -35,7 +35,7 @@ setup(
     zip_safe=False,
     use_scm_version={"local_scheme": local_scheme},
     setup_requires=["setuptools_scm"],
-    install_requires=["docopt", "xerox"],
+    install_requires=["docopt", "xerox; platform_system == 'Darwin'"],
     extras_require={"tests": ["pytest", "pytest-cov"]},
     python_requires=">=3.6",
     project_urls={
