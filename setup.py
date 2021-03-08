@@ -35,7 +35,7 @@ setup(
     zip_safe=False,
     use_scm_version={"local_scheme": local_scheme},
     setup_requires=["setuptools_scm"],
-    install_requires=["docopt", "xerox; platform_system != 'Windows'"],
+    install_requires=["docopt", "xerox; platform_system == 'Darwin'"],
     extras_require={"tests": ["pytest", "pytest-cov"]},
     python_requires=">=3.6",
     project_urls={
