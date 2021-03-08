@@ -1,14 +1,5 @@
 """em: the technicolor cli emoji keyboard™
 
-Usage:
-  em <name>... [--no-copy]
-  em -s <name>...
-
-Options:
-  -s            Search for emoji.
-  -h --help     Show this screen.
-  --no-copy     Does not copy emoji to clipboard.
-
 Examples:
 
   $ em sparkle cake sparkles
@@ -23,6 +14,7 @@ Notes:
 """
 
 
+import argparse
 import fnmatch
 import itertools
 import json
@@ -30,8 +22,6 @@ import os
 import re
 import sys
 from collections import defaultdict
-
-from docopt import docopt
 
 try:
     import xerox
@@ -86,9 +76,17 @@ def clean_name(name):
 
 def cli():
     # CLI argument parsing.
-    arguments = docopt(__doc__)
-    names = tuple(map(clean_name, arguments["<name>"]))
-    no_copy = arguments["--no-copy"]
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument("name", nargs="+", help="Text to convert to emoji")
+    parser.add_argument("-s", "--search", action="store_true", help="Search for emoji")
+    parser.add_argument(
+        "--no-copy", action="store_true", help="Does not copy emoji to clipboard"
+    )
+    args = parser.parse_args()
+    names = tuple(map(clean_name, args.name))
+    no_copy = args.no_copy
 
     # Marker for if the given emoji isn't found.
     missing = False
@@ -100,7 +98,7 @@ def cli():
         lookup.update(parse_emojis(CUSTOM_EMOJI_PATH))
 
     # Search mode.
-    if arguments["-s"]:
+    if args.search:
 
         # Lookup the search term.
         found = do_find(lookup, names[0])

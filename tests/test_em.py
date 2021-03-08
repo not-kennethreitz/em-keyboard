@@ -1,3 +1,4 @@
+import argparse
 from unittest.mock import call, patch
 
 import pytest
@@ -12,12 +13,14 @@ from em import cli, xerox
         ":star:",
     ],
 )
-@patch("em.docopt")
+@patch("em.argparse.ArgumentParser.parse_args")
 @patch("em.sys.exit")
 @patch("builtins.print")
-def test_star(mock_print, mock_exit, mock_docopt, test_name):
+def test_star(mock_print, mock_exit, mock_argparse, test_name):
     # Arrange
-    mock_docopt.return_value = {"<name>": [test_name], "--no-copy": None, "-s": None}
+    mock_argparse.return_value = argparse.Namespace(
+        name=[test_name], no_copy=None, search=None
+    )
 
     # Act
     cli()
@@ -29,12 +32,14 @@ def test_star(mock_print, mock_exit, mock_docopt, test_name):
         mock_print.assert_called_once_with("⭐")
 
 
-@patch("em.docopt")
+@patch("em.argparse.ArgumentParser.parse_args")
 @patch("em.sys.exit")
 @patch("builtins.print")
-def test_not_found(mock_print, mock_exit, mock_docopt):
+def test_not_found(mock_print, mock_exit, mock_argparse):
     # Arrange
-    mock_docopt.return_value = {"<name>": ["xxx"], "--no-copy": None, "-s": None}
+    mock_argparse.return_value = argparse.Namespace(
+        name=["xxx"], no_copy=None, search=None
+    )
 
     # Act
     cli()
@@ -43,12 +48,14 @@ def test_not_found(mock_print, mock_exit, mock_docopt):
     mock_print.assert_called_once_with("")
 
 
-@patch("em.docopt")
+@patch("em.argparse.ArgumentParser.parse_args")
 @patch("em.sys.exit")
 @patch("builtins.print")
-def test_no_copy(mock_print, mock_exit, mock_docopt):
+def test_no_copy(mock_print, mock_exit, mock_argparse):
     # Arrange
-    mock_docopt.return_value = {"<name>": ["star"], "--no-copy": True, "-s": None}
+    mock_argparse.return_value = argparse.Namespace(
+        name=["star"], no_copy=True, search=None
+    )
 
     # Act
     cli()
@@ -57,12 +64,14 @@ def test_no_copy(mock_print, mock_exit, mock_docopt):
     mock_print.assert_called_once_with("⭐")
 
 
-@patch("em.docopt")
+@patch("em.argparse.ArgumentParser.parse_args")
 @patch("em.sys.exit")
 @patch("builtins.print")
-def test_search_star(mock_print, mock_exit, mock_docopt):
+def test_search_star(mock_print, mock_exit, mock_argparse):
     # Arrange
-    mock_docopt.return_value = {"<name>": ["star"], "--no-copy": None, "-s": True}
+    mock_argparse.return_value = argparse.Namespace(
+        name=["star"], no_copy=None, search=True
+    )
     expected = (
         "💫  dizzy",
         "⭐  star",
