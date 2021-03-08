@@ -2,7 +2,7 @@ from codecs import open
 
 from setuptools import setup
 
-with open("README.md") as f:
+with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
 
 
