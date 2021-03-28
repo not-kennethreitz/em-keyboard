@@ -23,10 +23,14 @@ import re
 import sys
 from collections import defaultdict
 
+import pkg_resources
+
 try:
     import xerox
 except ImportError:
     xerox = None
+
+__version__: str = pkg_resources.get_distribution("em-keyboard").version
 
 EMOJI_PATH = os.path.join(os.path.dirname(__file__), "emojis.json")
 CUSTOM_EMOJI_PATH = os.path.join(os.path.expanduser("~/.emojis.json"))
@@ -83,6 +87,9 @@ def cli():
     parser.add_argument("-s", "--search", action="store_true", help="Search for emoji")
     parser.add_argument(
         "--no-copy", action="store_true", help="Does not copy emoji to clipboard"
+    )
+    parser.add_argument(
+        "-V", "--version", action="version", version=f"%(prog)s {__version__}"
     )
     args = parser.parse_args()
     names = tuple(map(clean_name, args.name))
