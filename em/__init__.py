@@ -60,7 +60,7 @@ def do_find(lookup: dict, term: str) -> list:
     for emoji, keywords in lookup.items():
         for keyword in keywords:
             if term in keyword:
-                output.append((keywords[0], [emoji]))
+                output.append((keywords[0], emoji))
 
     return output
 
@@ -104,15 +104,15 @@ def cli():
         found = do_find(lookup, names[0])
 
         # print them to the screen.
-        for (n, v) in found:
+        for (name, emoji) in found:
             # Some registered emoji have no value.
             try:
-                print("{}  {}".format(" ".join(v), n))
+                print(f"{emoji}  {name}")
             # Sometimes, an emoji will have no value.
             except TypeError:
                 pass
 
-        return sys.exit(0)
+        sys.exit(0)
 
     # Process the results.
     results = (translate(lookup, name) for name in names)
