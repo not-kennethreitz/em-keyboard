@@ -58,8 +58,9 @@ def do_find(lookup: dict, term: str) -> list:
     output = []
 
     for emoji, keywords in lookup.items():
-        if term in keywords:
-            output.append((keywords[0], [emoji]))
+        for keyword in keywords:
+            if term in keyword:
+                output.append((keywords[0], [emoji]))
 
     return output
 
