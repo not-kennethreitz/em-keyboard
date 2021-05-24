@@ -56,11 +56,13 @@ def translate(lookup: dict, code: str) -> list:
 def do_find(lookup: dict, term: str) -> list:
     """Match term against keywords."""
     output = []
+    seen = set()
 
     for emoji, keywords in lookup.items():
         for keyword in keywords:
-            if term in keyword:
+            if term in keyword and emoji not in seen:
                 output.append((keywords[0], emoji))
+                seen.add(emoji)
 
     return output
 
