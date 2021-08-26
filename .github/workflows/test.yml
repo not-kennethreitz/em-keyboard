@@ -3,7 +3,7 @@ name: Test
 on: [push, pull_request]
 
 jobs:
-  build:
+  test:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -56,7 +56,7 @@ jobs:
           name: ${{ matrix.os }} Python ${{ matrix.python-version }}
 
   success:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
     name: Test Successful
     steps:
