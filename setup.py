@@ -1,5 +1,3 @@
-from codecs import open
-
 from setuptools import setup
 
 with open("README.md", encoding="utf-8") as f:
@@ -52,6 +50,7 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: Implementation :: CPython",
     ],
