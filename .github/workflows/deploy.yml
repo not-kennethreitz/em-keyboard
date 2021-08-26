@@ -9,7 +9,7 @@ on:
       - published
 
 jobs:
-  build:
+  deploy:
     if: github.repository == 'hugovk/em-keyboard'
     runs-on: ubuntu-20.04
 
