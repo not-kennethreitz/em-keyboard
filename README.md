@@ -36,13 +36,14 @@ $ em 'chocolate bar' --no-copy
 Let's find some emoji, by color:
 
 ```console
-$ em -s red
-🥵  hot_face
-👹  ogre
-👺  goblin
-🚗  automobile
-🎴  flower_playing_cards
-❌  cross_mark
+$ em -s yellow
+💛  yellow_heart
+🌼  blossom
+🌕  full_moon
+⭐  star
+🚸  children_crossing
+🟡  yellow_circle
+🟨  yellow_square
 ```
 
 ## Installation

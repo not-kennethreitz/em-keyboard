@@ -56,10 +56,13 @@ def translate(lookup: dict, code: str) -> list:
 def do_find(lookup: dict, term: str) -> list:
     """Match term against keywords."""
     output = []
+    seen = set()
 
     for emoji, keywords in lookup.items():
-        if term in keywords:
-            output.append((keywords[0], [emoji]))
+        for keyword in keywords:
+            if term in keyword and emoji not in seen:
+                output.append((keywords[0], emoji))
+                seen.add(emoji)
 
     return output
 
@@ -103,15 +106,15 @@ def cli():
         found = do_find(lookup, names[0])
 
         # print them to the screen.
-        for (n, v) in found:
+        for (name, emoji) in found:
             # Some registered emoji have no value.
             try:
-                print("{}  {}".format(" ".join(v), n))
+                print(f"{emoji}  {name}")
             # Sometimes, an emoji will have no value.
             except TypeError:
                 pass
 
-        return sys.exit(0)
+        sys.exit(0)
 
     # Process the results.
     results = (translate(lookup, name) for name in names)
