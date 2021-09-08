@@ -3,7 +3,7 @@ from unittest.mock import call, patch
 
 import pytest
 
-from em import cli, xerox
+from em import cli, copier
 
 
 @pytest.mark.parametrize(
@@ -26,7 +26,7 @@ def test_star(mock_print, mock_exit, mock_argparse, test_name):
     cli()
 
     # Assert
-    if xerox:
+    if copier:
         mock_print.assert_called_once_with("Copied! ⭐")
     else:
         mock_print.assert_called_once_with("⭐")
