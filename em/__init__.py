@@ -24,9 +24,12 @@ import sys
 import pkg_resources
 
 try:
-    import xerox
+    import xerox as copier
 except ImportError:
-    xerox = None
+    try:
+        import pyperclip as copier
+    except ImportError:
+        copier = None
 
 __version__: str = pkg_resources.get_distribution("em-keyboard").version
 
@@ -130,8 +133,8 @@ def cli():
     results = "".join(results)
 
     # Copy the results (and say so!) to the clipboard.
-    if xerox and not no_copy and not missing:
-        xerox.copy(results)
+    if copier and not no_copy and not missing:
+        copier.copy(results)
         print(f"Copied! {print_results}")
 
     # Script-kiddies.
