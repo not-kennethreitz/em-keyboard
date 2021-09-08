@@ -35,7 +35,7 @@ setup(
     setup_requires=["setuptools_scm"],
     install_requires=[
         "xerox; platform_system == 'Darwin'",
-        "pyperclip; platform_system == 'win'",
+        "pyperclip; platform_system == 'Windows'",
     ],
     extras_require={"tests": ["pytest", "pytest-cov"]},
     python_requires=">=3.6",
