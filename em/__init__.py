@@ -24,10 +24,10 @@ import sys
 import pkg_resources
 
 try:
-    import xerox as copier
+    import pyperclip as copier
 except ImportError:
     try:
-        import pyperclip as copier
+        import xerox as copier
     except ImportError:
         copier = None
 
