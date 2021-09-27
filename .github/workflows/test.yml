@@ -49,6 +49,15 @@ jobs:
         run: |
           tox -e py
 
+      - name: Test emojis.json is up-to-date
+        run: |
+          # Install
+          python -m pip install -e .
+          # Regenerate
+          python scripts/despacify.py
+          # Fail if different
+          git diff --name-only --exit-code
+
       - name: Upload coverage
         uses: codecov/codecov-action@v1
         with:

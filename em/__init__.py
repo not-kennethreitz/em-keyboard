@@ -33,7 +33,7 @@ except ImportError:
 
 __version__: str = pkg_resources.get_distribution("em-keyboard").version
 
-EMOJI_PATH = os.path.join(os.path.dirname(__file__), "emoji-en-US.json")
+EMOJI_PATH = os.path.join(os.path.dirname(__file__), "emojis.json")
 CUSTOM_EMOJI_PATH = os.path.join(os.path.expanduser("~/.emojis.json"))
 
 
