@@ -36,10 +36,6 @@ jobs:
           python -m pip install -U pip
           python -m pip install -U setuptools twine wheel
 
-      - name: Generate emojis.json
-        run: |
-          python scripts/despacify.py
-
       - name: Build package
         run: |
           python setup.py --version
