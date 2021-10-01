@@ -27,7 +27,7 @@ setup(
         "search",
     ],
     packages=["em"],
-    package_data={"": ["LICENSE", "NOTICE"], "em": ["emoji-en-US.json"]},
+    package_data={"": ["LICENSE", "NOTICE"], "em": ["emojis.json"]},
     include_package_data=True,
     entry_points={"console_scripts": ["em=em:cli"]},
     zip_safe=False,

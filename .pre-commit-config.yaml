@@ -34,6 +34,7 @@ repos:
       - id: check-toml
       - id: check-yaml
       - id: end-of-file-fixer
+        exclude: ^em/emojis.json$
       - id: requirements-txt-fixer
       - id: trailing-whitespace
 
