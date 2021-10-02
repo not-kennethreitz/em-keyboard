@@ -49,6 +49,12 @@ jobs:
         run: |
           tox -e py
 
+      - name: Test CLI
+        if: matrix.os == 'ubuntu-latest'
+        shell: bash
+        run: |
+          tox -e cli
+
       - name: Test emojis.json is up-to-date
         run: |
           # Install
