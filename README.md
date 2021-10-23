@@ -8,14 +8,16 @@
 [![GitHub](https://img.shields.io/github/license/hugovk/em-keyboard.svg)](LICENSE)
 
 **Emoji your friends and colleagues from the comfort of your own
-terminal.**
+terminal !**
 
-**em** is a nifty command-line utility for referencing emoji characters
+**`em`** is a nifty command-line utility for referencing emoji characters
 by name. Provide the names of a few emoji, and those lucky chosen emojis
 will be displayed in your terminal, then copied to your clipboard.
-Automagically.
+Automagically✨.
 
-Emoji can be also searched by both categories and aspects.
+Emoji can be also searched by both ___categories___ and ___aspects___.
+
+____
 
 ## Example Usage
 
@@ -45,17 +47,18 @@ $ em -s yellow
 🟡  yellow_circle
 🟨  yellow_square
 ```
+___
 
 ## Installation
 
-At this time, **em** requires Python and pip:
+At this time, **`em`** requires Python and pip:
 
 ```sh
 python3 -m pip install em-keyboard
 ```
 
-That's it!
-
+>That's it !
+____
 ## Tests
 
 If you wanna develop, you might want to write and run tests:
