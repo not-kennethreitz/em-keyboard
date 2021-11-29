@@ -11,6 +11,8 @@ from em import cli, copier
     [
         "star",
         ":star:",
+        "STAR",
+        ":Star:",
     ],
 )
 @patch("em.argparse.ArgumentParser.parse_args")

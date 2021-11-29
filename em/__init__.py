@@ -73,7 +73,7 @@ def do_find(lookup: dict, term: str) -> list:
 def clean_name(name):
     """Clean emoji name replacing specials chars by underscore"""
     special_chars = "[-. ]"  # square brackets are part of the regex
-    return re.sub(special_chars, "_", name)
+    return re.sub(special_chars, "_", name).lower()
 
 
 def cli():
