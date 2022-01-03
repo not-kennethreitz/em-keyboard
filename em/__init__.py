@@ -21,7 +21,12 @@ import os
 import re
 import sys
 
-import pkg_resources
+try:
+    # Python 3.8+
+    import importlib.metadata as importlib_metadata
+except ImportError:
+    # Python 3.7 and lower
+    import importlib_metadata
 
 try:
     import pyperclip as copier
@@ -31,7 +36,7 @@ except ImportError:
     except ImportError:
         copier = None
 
-__version__: str = pkg_resources.get_distribution("em-keyboard").version
+__version__: str = importlib_metadata.version("em_keyboard")
 
 EMOJI_PATH = os.path.join(os.path.dirname(__file__), "emojis.json")
 CUSTOM_EMOJI_PATH = os.path.join(os.path.expanduser("~/.emojis.json"))
