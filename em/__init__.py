@@ -117,7 +117,10 @@ def cli():
             except TypeError:
                 pass
 
-        sys.exit(0)
+        if len(found):
+            sys.exit(0)
+        else:
+            sys.exit(1)
 
     # Process the results.
     results = (translate(lookup, name) for name in names)
