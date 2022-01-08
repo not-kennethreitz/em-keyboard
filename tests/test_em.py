@@ -32,6 +32,7 @@ def test_star(mock_print, mock_exit, mock_argparse, test_name):
         mock_print.assert_called_once_with("Copied! ⭐")
     else:
         mock_print.assert_called_once_with("⭐")
+    mock_exit.assert_called_with(0)
 
 
 @patch("em.argparse.ArgumentParser.parse_args")
@@ -48,6 +49,7 @@ def test_not_found(mock_print, mock_exit, mock_argparse):
 
     # Assert
     mock_print.assert_called_once_with("")
+    mock_exit.assert_called_with(1)
 
 
 @patch("em.argparse.ArgumentParser.parse_args")
@@ -64,6 +66,7 @@ def test_no_copy(mock_print, mock_exit, mock_argparse):
 
     # Assert
     mock_print.assert_called_once_with("⭐")
+    mock_exit.assert_called_with(0)
 
 
 @patch("em.argparse.ArgumentParser.parse_args")
@@ -86,3 +89,21 @@ def test_search_star(mock_print, mock_exit, mock_argparse):
     # Assert
     for arg in expected:
         assert call(arg) in mock_print.call_args_list
+    mock_exit.assert_called_with(0)
+
+
+@patch("em.argparse.ArgumentParser.parse_args")
+@patch("em.sys.exit")
+@patch("builtins.print")
+def test_search_not_found(mock_print, mock_exit, mock_argparse):
+    # Arrange
+    mock_argparse.return_value = argparse.Namespace(
+        name=["twenty_o_clock"], no_copy=None, search=True
+    )
+
+    # Act
+    cli()
+
+    # Assert
+    mock_print.assert_called_once_with("")
+    mock_exit.assert_called_with(1)
