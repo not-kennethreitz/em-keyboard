@@ -93,6 +93,27 @@ def test_search_star(mock_print, mock_exit, mock_argparse):
 
 
 @patch("em.argparse.ArgumentParser.parse_args")
+@patch("builtins.print")
+def test_search_single_result_is_copied(mock_print, mock_argparse):
+    # Arrange
+    mock_argparse.return_value = argparse.Namespace(
+        name=["ukraine"], no_copy=None, search=True
+    )
+
+    # Act
+    with pytest.raises(SystemExit) as e:
+        cli()
+
+    # Assert
+    if copier:
+        mock_print.assert_called_once_with("Copied! 🇺🇦  flag_ukraine")
+    else:
+        mock_print.assert_called_once_with("🇺🇦  flag_ukraine")
+    assert e.type == SystemExit
+    assert e.value.code == 0
+
+
+@patch("em.argparse.ArgumentParser.parse_args")
 @patch("em.sys.exit")
 @patch("builtins.print")
 def test_search_not_found(mock_print, mock_exit, mock_argparse):

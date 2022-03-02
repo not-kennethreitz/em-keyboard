@@ -61,6 +61,17 @@ $ em -s yellow
 
 <!-- [[[end]]] -->
 
+If there's only a single search result, it's copied:
+
+<!-- [[[cog run("em -s ukraine") ]]] -->
+
+```console
+$ em -s ukraine
+Copied! 🇺🇦  flag_ukraine
+```
+
+<!-- [[[end]]] -->
+
 ## Installation
 
 At this time, **em** requires Python and pip:
