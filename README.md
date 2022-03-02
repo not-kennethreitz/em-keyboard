@@ -21,19 +21,32 @@ Emoji can be also searched by both categories and aspects.
 
 Let's serve some delicious cake:
 
+<!-- [[[cog
+from scripts.run_command import run
+run("em sparkles shortcake sparkles")
+]]] -->
+
 ```console
 $ em sparkles shortcake sparkles
-Copied! ✨🍰✨
+Copied! ✨ 🍰 ✨
 ```
 
+<!-- [[[end]]] -->
+
 Let's skip the copying (for scripts):
+
+<!-- [[[cog run("em 'chocolate bar' --no-copy") ]]] -->
 
 ```console
 $ em 'chocolate bar' --no-copy
 🍫
 ```
 
+<!-- [[[end]]] -->
+
 Let's find some emoji, by color:
+
+<!-- [[[cog run("em -s yellow") ]]] -->
 
 ```console
 $ em -s yellow
@@ -45,6 +58,8 @@ $ em -s yellow
 🟡  yellow_circle
 🟨  yellow_square
 ```
+
+<!-- [[[end]]] -->
 
 ## Installation
 
