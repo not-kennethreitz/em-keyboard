@@ -16,63 +16,64 @@ from em import cli, copier
     ],
 )
 @patch("em.argparse.ArgumentParser.parse_args")
-@patch("em.sys.exit")
 @patch("builtins.print")
-def test_star(mock_print, mock_exit, mock_argparse, test_name):
+def test_star(mock_print, mock_argparse, test_name):
     # Arrange
     mock_argparse.return_value = argparse.Namespace(
         name=[test_name], no_copy=None, search=None
     )
 
     # Act
-    cli()
+    with pytest.raises(SystemExit) as e:
+        cli()
 
     # Assert
     if copier:
         mock_print.assert_called_once_with("Copied! ⭐")
     else:
         mock_print.assert_called_once_with("⭐")
-    mock_exit.assert_called_with(0)
+    assert e.type == SystemExit
+    assert e.value.code == 0
 
 
 @patch("em.argparse.ArgumentParser.parse_args")
-@patch("em.sys.exit")
 @patch("builtins.print")
-def test_not_found(mock_print, mock_exit, mock_argparse):
+def test_not_found(mock_print, mock_argparse):
     # Arrange
     mock_argparse.return_value = argparse.Namespace(
         name=["xxx"], no_copy=None, search=None
     )
 
-    # Act
-    cli()
+    with pytest.raises(SystemExit) as e:
+        cli()
 
     # Assert
     mock_print.assert_called_once_with("")
-    mock_exit.assert_called_with(1)
+    assert e.type == SystemExit
+    assert e.value.code == 1
 
 
 @patch("em.argparse.ArgumentParser.parse_args")
-@patch("em.sys.exit")
 @patch("builtins.print")
-def test_no_copy(mock_print, mock_exit, mock_argparse):
+def test_no_copy(mock_print, mock_argparse):
     # Arrange
     mock_argparse.return_value = argparse.Namespace(
         name=["star"], no_copy=True, search=None
     )
 
     # Act
-    cli()
+    with pytest.raises(SystemExit) as e:
+        cli()
 
     # Assert
     mock_print.assert_called_once_with("⭐")
-    mock_exit.assert_called_with(0)
+    assert e.type == SystemExit
+    assert e.value.code == 0
 
 
 @patch("em.argparse.ArgumentParser.parse_args")
-@patch("em.sys.exit")
 @patch("builtins.print")
-def test_search_star(mock_print, mock_exit, mock_argparse):
+def test_search_star(mock_print, mock_argparse):
     # Arrange
     mock_argparse.return_value = argparse.Namespace(
         name=["star"], no_copy=None, search=True
@@ -84,12 +85,14 @@ def test_search_star(mock_print, mock_exit, mock_argparse):
     )
 
     # Act
-    cli()
+    with pytest.raises(SystemExit) as e:
+        cli()
 
     # Assert
     for arg in expected:
         assert call(arg) in mock_print.call_args_list
-    mock_exit.assert_called_with(0)
+    assert e.type == SystemExit
+    assert e.value.code == 0
 
 
 @patch("em.argparse.ArgumentParser.parse_args")
@@ -114,17 +117,18 @@ def test_search_single_result_is_copied(mock_print, mock_argparse):
 
 
 @patch("em.argparse.ArgumentParser.parse_args")
-@patch("em.sys.exit")
 @patch("builtins.print")
-def test_search_not_found(mock_print, mock_exit, mock_argparse):
+def test_search_not_found(mock_print, mock_argparse):
     # Arrange
     mock_argparse.return_value = argparse.Namespace(
         name=["twenty_o_clock"], no_copy=None, search=True
     )
 
     # Act
-    cli()
+    with pytest.raises(SystemExit) as e:
+        cli()
 
     # Assert
-    mock_print.assert_called_once_with("")
-    mock_exit.assert_called_with(1)
+    mock_print.assert_not_called()
+    assert e.type == SystemExit
+    assert e.value.code == 1
