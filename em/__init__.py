@@ -117,7 +117,13 @@ def cli():
         for (name, emoji) in found:
             # Some registered emoji have no value.
             try:
-                print(f"{emoji}  {name}")
+                # Copy the results (and say so!) to the clipboard.
+                if copier and not no_copy and len(found) == 1:
+                    copier.copy(emoji)
+                    print(f"Copied! {emoji}  {name}")
+                else:
+                    print(f"{emoji}  {name}")
+
             # Sometimes, an emoji will have no value.
             except TypeError:
                 pass
