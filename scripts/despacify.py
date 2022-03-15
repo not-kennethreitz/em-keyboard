@@ -1,27 +1,28 @@
 """
 Replace spaces in emoji keywords with underscores
 """
+from __future__ import annotations
+
 import json
-import os
 
-from em import EMOJI_PATH, parse_emojis
+from em import parse_emojis
 
-# The unprocessed source file
-INPUT_EMOJILIB_PATH = os.path.join(os.path.dirname(EMOJI_PATH), "emoji-en-US.json")
+INPUT_EMOJILIB_PATH = "em/emoji-en-US.json"
+OUTPUT_EMOJI_PATH = "em/emojis.json"
 
 
-def save_emojis(data, filename):
+def save_emojis(data: dict[str, list[str]], filename: str) -> None:
     with open(filename, "w") as outfile:
         json.dump(data, outfile, indent=None, separators=(",", ":"))
 
 
-def main():
+def main() -> None:
     data = parse_emojis(INPUT_EMOJILIB_PATH)
     for emoji, keywords in data.items():
         keywords = [keyword.replace(" ", "_") for keyword in keywords]
         data[emoji] = keywords
-    save_emojis(data, EMOJI_PATH)
-    print(f"Emojis saved to {EMOJI_PATH}")
+    save_emojis(data, OUTPUT_EMOJI_PATH)
+    print(f"Emojis saved to {OUTPUT_EMOJI_PATH}")
 
 
 if __name__ == "__main__":
