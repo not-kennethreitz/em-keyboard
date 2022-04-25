@@ -18,6 +18,7 @@ import argparse
 import itertools
 import json
 import os
+import random
 import re
 import sys
 
@@ -81,13 +82,14 @@ def clean_name(name):
     return re.sub(special_chars, "_", name).lower()
 
 
-def cli():
+def cli() -> None:
     # CLI argument parsing.
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument("name", nargs="+", help="Text to convert to emoji")
+    parser.add_argument("name", nargs="*", help="Text to convert to emoji")
     parser.add_argument("-s", "--search", action="store_true", help="Search for emoji")
+    parser.add_argument("-r", "--random", action="store_true", help="Get random emoji")
     parser.add_argument(
         "--no-copy", action="store_true", help="Does not copy emoji to clipboard"
     )
@@ -95,17 +97,31 @@ def cli():
         "-V", "--version", action="version", version=f"%(prog)s {__version__}"
     )
     args = parser.parse_args()
-    names = tuple(map(clean_name, args.name))
     no_copy = args.no_copy
-
-    # Marker for if the given emoji isn't found.
-    missing = False
 
     # Grab the lookup dictionary.
     lookup = parse_emojis()
 
     if os.path.isfile(CUSTOM_EMOJI_PATH):
         lookup.update(parse_emojis(CUSTOM_EMOJI_PATH))
+
+    if args.random:
+        emoji, keywords = random.choice(list(lookup.items()))
+        name = keywords[0]
+        if copier and not no_copy:
+            copier.copy(emoji)
+            print(f"Copied! {emoji}  {name}")
+        else:
+            print(f"{emoji}  {name}")
+        sys.exit(0)
+
+    if not args.name:
+        sys.exit("Error: the 'name' argument is required")
+
+    names = tuple(map(clean_name, args.name))
+
+    # Marker for if the given emoji isn't found.
+    missing = False
 
     # Search mode.
     if args.search:
