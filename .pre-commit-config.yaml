@@ -36,7 +36,6 @@ repos:
       - id: check-yaml
       - id: end-of-file-fixer
         exclude: ^em/emojis.json$
-      - id: requirements-txt-fixer
       - id: trailing-whitespace
 
   - repo: https://github.com/asottile/setup-cfg-fmt
