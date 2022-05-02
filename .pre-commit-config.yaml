@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.31.1
+    rev: v2.32.0
     hooks:
       - id: pyupgrade
         args: [--py37-plus]
@@ -28,7 +28,7 @@ repos:
       - id: python-check-blanket-noqa
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: v4.2.0
     hooks:
       - id: check-json
       - id: check-merge-conflict
@@ -36,13 +36,18 @@ repos:
       - id: check-yaml
       - id: end-of-file-fixer
         exclude: ^em/emojis.json$
-      - id: requirements-txt-fixer
       - id: trailing-whitespace
 
   - repo: https://github.com/asottile/setup-cfg-fmt
     rev: v1.20.1
     hooks:
       - id: setup-cfg-fmt
+        args: [--max-py-version=3.11]
+
+  - repo: https://github.com/tox-dev/pyproject-fmt
+    rev: 0.3.3
+    hooks:
+      - id: pyproject-fmt
 
   - repo: https://github.com/tox-dev/tox-ini-fmt
     rev: 0.5.2
