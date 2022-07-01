@@ -1,0 +1,17 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base"],
+  "labels": ["changelog: skip", "dependencies"],
+  "packageRules": [
+    {
+      "groupName": "github-actions",
+      "matchManagers": ["github-actions"],
+      "separateMajorMinor": "false"
+    },
+    {
+      "groupName": "requirements.txt",
+      "matchPaths": ["requirements.txt"]
+    }
+  ],
+  "schedule": ["on the first day of the month"]
+}
