@@ -1,8 +1,8 @@
 [build-system]
-build-backend = "setuptools.build_meta"
+build-backend = "hatchling.build"
 requires = [
-  "setuptools>=61.2",
-  "setuptools_scm[toml]>=6.2",
+  "hatch-vcs",
+  "hatchling",
 ]
 
 [project]
@@ -58,14 +58,20 @@ Source = "https://github.com/hugovk/em-keyboard"
 em = "em:cli"
 
 
+[tool.black]
+target_version = ["py37"]
+
+[tool.hatch]
+version.source = "vcs"
+
+[tool.hatch.build.force-include]
+"em/emojis.json" = "em/emojis.json"
+
+[tool.hatch.version.raw-options]
+local_scheme = "no-local-version"
+
+[tool.isort]
+profile = "black"
+
 [tool.pytest.ini_options]
 addopts = "--color=yes"
-
-[tool.setuptools]
-packages = ["em"]
-include-package-data = true
-zip-safe = false
-license-files = ["LICENSE"]
-
-[tool.setuptools_scm]
-local_scheme = "no-local-version"
