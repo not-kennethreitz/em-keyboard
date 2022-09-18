@@ -58,6 +58,9 @@ Source = "https://github.com/hugovk/em-keyboard"
 em = "em:cli"
 
 
+[tool.black]
+target_version = ["py37"]
+
 [tool.hatch]
 version.source = "vcs"
 
@@ -66,6 +69,9 @@ version.source = "vcs"
 
 [tool.hatch.version.raw-options]
 local_scheme = "no-local-version"
+
+[tool.isort]
+profile = "black"
 
 [tool.pytest.ini_options]
 addopts = "--color=yes"
