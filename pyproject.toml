@@ -6,7 +6,7 @@ requires = [
 ]
 
 [project]
-name = "em_keyboard"
+name = "em-keyboard"
 description = "The CLI Emoji Keyboard"
 readme = "README.md"
 keywords = [
@@ -19,14 +19,6 @@ license = {text = "ISC"}
 maintainers = [{name = "Hugo van Kemenade"}]
 authors = [{name = "Kenneth Reitz", email = "me@kennethreitz.org"}]
 requires-python = ">=3.7"
-dependencies = [
-  'importlib-metadata; python_version < "3.8"',
-  'pyperclip; platform_system == "Darwin"',
-  'pyperclip; platform_system == "Windows"',
-]
-dynamic = [
-  "version",
-]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
@@ -44,23 +36,25 @@ classifiers = [
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
 ]
+dynamic = [
+  "version",
+]
+dependencies = [
+  'importlib-metadata; python_version < "3.8"',
+  'pyperclip; platform_system == "Darwin"',
+  'pyperclip; platform_system == "Windows"',
+]
 [project.optional-dependencies]
 tests = [
   "pytest",
   "pytest-cov",
 ]
-
 [project.urls]
 Changelog = "https://github.com/hugovk/em-keyboard/releases"
 Homepage = "https://github.com/hugovk/em-keyboard"
 Source = "https://github.com/hugovk/em-keyboard"
-
 [project.scripts]
 em = "em:cli"
-
-
-[tool.black]
-target_version = ["py37"]
 
 [tool.hatch]
 version.source = "vcs"
@@ -70,6 +64,9 @@ version.source = "vcs"
 
 [tool.hatch.version.raw-options]
 local_scheme = "no-local-version"
+
+[tool.black]
+target_version = ["py37"]
 
 [tool.isort]
 profile = "black"

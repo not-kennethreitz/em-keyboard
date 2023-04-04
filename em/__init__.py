@@ -125,12 +125,11 @@ def cli() -> None:
 
     # Search mode.
     if args.search:
-
         # Lookup the search term.
         found = do_find(lookup, names[0])
 
         # print them to the screen.
-        for (name, emoji) in found:
+        for name, emoji in found:
             # Some registered emoji have no value.
             try:
                 # Copy the results (and say so!) to the clipboard.
