@@ -18,29 +18,27 @@ keywords = [
 license = {text = "ISC"}
 maintainers = [{name = "Hugo van Kemenade"}]
 authors = [{name = "Kenneth Reitz", email = "me@kennethreitz.org"}]
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: ISC License (ISCL)",
-    "Natural Language :: English",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: Implementation :: CPython",
-    "Programming Language :: Python :: Implementation :: PyPy",
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: ISC License (ISCL)",
+  "Natural Language :: English",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dynamic = [
   "version",
 ]
 dependencies = [
-  'importlib-metadata; python_version < "3.8"',
   'pyperclip; platform_system == "Darwin"',
   'pyperclip; platform_system == "Windows"',
 ]
@@ -64,9 +62,6 @@ version.source = "vcs"
 
 [tool.hatch.version.raw-options]
 local_scheme = "no-local-version"
-
-[tool.black]
-target_version = ["py37"]
 
 [tool.isort]
 profile = "black"
