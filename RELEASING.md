@@ -13,7 +13,7 @@
 - [ ] Publish release
 
 - [ ] Check the tagged
-      [GitHub Actions build](https://github.com/hugovk/em-keyboard/actions?query=workflow%3ADeploy)
+      [GitHub Actions build](https://github.com/hugovk/em-keyboard/actions/workflow/deploy.yml)
       has deployed to [PyPI](https://pypi.org/project/em-keyboard/#history)
 
 - [ ] Check installation:
