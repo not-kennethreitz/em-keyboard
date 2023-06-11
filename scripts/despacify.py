@@ -14,6 +14,7 @@ OUTPUT_EMOJI_PATH = "src/em_keyboard/emojis.json"
 def save_emojis(data: dict[str, list[str]], filename: str) -> None:
     with open(filename, "w") as outfile:
         json.dump(data, outfile, indent=None, separators=(",", ":"))
+        outfile.write("\n")
 
 
 def main() -> None:
