@@ -5,10 +5,10 @@ from __future__ import annotations
 
 import json
 
-from em import parse_emojis
+from em_keyboard import parse_emojis
 
-INPUT_EMOJILIB_PATH = "em/emoji-en-US.json"
-OUTPUT_EMOJI_PATH = "em/emojis.json"
+INPUT_EMOJILIB_PATH = "src/em_keyboard/emoji-en-US.json"
+OUTPUT_EMOJI_PATH = "src/em_keyboard/emojis.json"
 
 
 def save_emojis(data: dict[str, list[str]], filename: str) -> None:

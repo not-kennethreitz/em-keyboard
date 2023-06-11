@@ -4,7 +4,7 @@ from unittest.mock import call, patch
 
 import pytest
 
-from em import cli, copier
+from em_keyboard import cli, copier
 
 
 @pytest.mark.parametrize(
@@ -16,7 +16,7 @@ from em import cli, copier
         ":Star:",
     ],
 )
-@patch("em.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_star(mock_print, mock_argparse, test_name):
     # Arrange
@@ -37,7 +37,7 @@ def test_star(mock_print, mock_argparse, test_name):
     assert e.value.code == 0
 
 
-@patch("em.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_not_found(mock_print, mock_argparse):
     # Arrange
@@ -54,7 +54,7 @@ def test_not_found(mock_print, mock_argparse):
     assert e.value.code == 1
 
 
-@patch("em.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_no_copy(mock_print, mock_argparse):
     # Arrange
@@ -72,7 +72,7 @@ def test_no_copy(mock_print, mock_argparse):
     assert e.value.code == 0
 
 
-@patch("em.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_search_star(mock_print, mock_argparse):
     # Arrange
@@ -96,7 +96,7 @@ def test_search_star(mock_print, mock_argparse):
     assert e.value.code == 0
 
 
-@patch("em.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_search_single_result_is_copied(mock_print, mock_argparse):
     # Arrange
@@ -117,7 +117,7 @@ def test_search_single_result_is_copied(mock_print, mock_argparse):
     assert e.value.code == 0
 
 
-@patch("em.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_search_not_found(mock_print, mock_argparse):
     # Arrange
@@ -135,7 +135,7 @@ def test_search_not_found(mock_print, mock_argparse):
     assert e.value.code == 1
 
 
-@patch("em.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_random(mock_print, mock_argparse):
     # Arrange
