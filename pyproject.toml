@@ -52,13 +52,10 @@ Changelog = "https://github.com/hugovk/em-keyboard/releases"
 Homepage = "https://github.com/hugovk/em-keyboard"
 Source = "https://github.com/hugovk/em-keyboard"
 [project.scripts]
-em = "em:cli"
+em = "em_keyboard:cli"
 
 [tool.hatch]
 version.source = "vcs"
-
-[tool.hatch.build.force-include]
-"em/emojis.json" = "em/emojis.json"
 
 [tool.hatch.version.raw-options]
 local_scheme = "no-local-version"
