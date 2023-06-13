@@ -1,4 +1,4 @@
-"""em: the technicolor cli emoji keyboard™
+"""em: the technicolor cli emoji keyboard
 
 Examples:
 
