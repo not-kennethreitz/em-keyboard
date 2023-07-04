@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.4.0
+    rev: v3.8.0
     hooks:
       - id: pyupgrade
         args: [--py38-plus]
@@ -41,7 +41,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: 0.10.0
+    rev: 0.13.0
     hooks:
       - id: pyproject-fmt
 
@@ -51,7 +51,7 @@ repos:
       - id: validate-pyproject
 
   - repo: https://github.com/tox-dev/tox-ini-fmt
-    rev: 1.3.0
+    rev: 1.3.1
     hooks:
       - id: tox-ini-fmt
 
