@@ -1,4 +1,4 @@
-# em: the cli emoji keyboard™
+# em: the cli emoji keyboard
 
 [![PyPI version](https://img.shields.io/pypi/v/em-keyboard.svg?logo=pypi&logoColor=FFE873)](https://pypi.org/project/em-keyboard/)
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/em-keyboard.svg?logo=python&logoColor=FFE873)](https://pypi.org/project/em-keyboard/)
