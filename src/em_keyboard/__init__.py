@@ -16,6 +16,7 @@ Notes:
 
 import argparse
 import importlib.metadata
+import importlib.resources
 import itertools
 import json
 import os
@@ -33,7 +34,9 @@ except ImportError:
 
 __version__: str = importlib.metadata.version("em_keyboard")
 
-EMOJI_PATH = os.path.join(os.path.dirname(__file__), "emojis.json")
+with importlib.resources.path("em_keyboard", "emojis.json") as em_json:
+    EMOJI_PATH = em_json
+
 CUSTOM_EMOJI_PATH = os.path.join(os.path.expanduser("~/.emojis.json"))
 
 
