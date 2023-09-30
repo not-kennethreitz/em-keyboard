@@ -33,7 +33,17 @@ except ImportError:
 
 __version__: str = importlib.metadata.version("em_keyboard")
 
-EMOJI_PATH = os.path.join(os.path.dirname(__file__), "emojis.json")
+try:
+    from importlib.resources import as_file, files
+
+    with as_file(files("em_keyboard").joinpath("emojis.json")) as em_json:
+        EMOJI_PATH = em_json
+except ImportError:
+    from importlib.resources import path
+
+    with path("em_keyboard", "emojis.json") as em_json:
+        EMOJI_PATH = em_json
+
 CUSTOM_EMOJI_PATH = os.path.join(os.path.expanduser("~/.emojis.json"))
 
 
