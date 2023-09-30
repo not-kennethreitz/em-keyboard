@@ -155,3 +155,40 @@ def test_random(mock_print, mock_argparse):
         mock_print.assert_called_once_with("😽  kissing_cat")
     assert e.type == SystemExit
     assert e.value.code == 0
+
+
+@patch("em_keyboard.argparse.ArgumentParser.parse_args")
+@patch("builtins.print")
+def test_random_no_copy(mock_print, mock_argparse):
+    # Arrange
+    mock_argparse.return_value = argparse.Namespace(
+        name=None, no_copy=True, search=False, random=True
+    )
+    random.seed(123)
+
+    # Act
+    with pytest.raises(SystemExit) as e:
+        cli()
+
+    # Assert
+    mock_print.assert_called_once_with("😽  kissing_cat")
+    assert e.type == SystemExit
+    assert e.value.code == 0
+
+
+@patch("em_keyboard.argparse.ArgumentParser.parse_args")
+@patch("builtins.print")
+def test_no_name(mock_print, mock_argparse):
+    # Arrange
+    mock_argparse.return_value = argparse.Namespace(
+        name=[], no_copy=None, search=True, random=False
+    )
+
+    # Act
+    with pytest.raises(SystemExit) as e:
+        cli()
+
+    # Assert
+    mock_print.assert_not_called()
+    assert e.type == SystemExit
+    assert e.value.code == "Error: the 'name' argument is required"
