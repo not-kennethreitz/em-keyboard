@@ -38,7 +38,6 @@ jobs:
     needs: build-package
 
     permissions:
-      # IMPORTANT: this permission is mandatory for trusted publishing
       id-token: write
 
     steps:
@@ -63,7 +62,6 @@ jobs:
     needs: build-package
 
     permissions:
-      # IMPORTANT: this permission is mandatory for trusted publishing
       id-token: write
 
     steps:

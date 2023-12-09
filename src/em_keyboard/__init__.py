@@ -12,7 +12,7 @@ Notes:
     automatically added to your clipboard.
   - ✨ 🍰 ✨  (sparkles shortcake sparkles)
 """
-
+from __future__ import annotations
 
 import argparse
 import importlib.metadata

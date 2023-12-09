@@ -7,13 +7,11 @@
 [![codecov](https://codecov.io/gh/hugovk/em-keyboard/branch/main/graph/badge.svg)](https://codecov.io/gh/hugovk/em-keyboard)
 [![GitHub](https://img.shields.io/github/license/hugovk/em-keyboard.svg)](LICENSE)
 
-**Emoji your friends and colleagues from the comfort of your own
-terminal.**
+**Emoji your friends and colleagues from the comfort of your own terminal.**
 
-**em** is a nifty command-line utility for referencing emoji characters
-by name. Provide the names of a few emoji, and those lucky chosen emojis
-will be displayed in your terminal, then copied to your clipboard.
-Automagically.
+**em** is a nifty command-line utility for referencing emoji characters by name. Provide
+the names of a few emoji, and those lucky chosen emojis will be displayed in your
+terminal, then copied to your clipboard. Automagically.
 
 Emoji can be also searched by both categories and aspects.
 

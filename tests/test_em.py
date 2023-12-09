@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import argparse
 import random
 from unittest.mock import call, patch
