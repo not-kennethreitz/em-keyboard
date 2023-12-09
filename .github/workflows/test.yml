@@ -11,19 +11,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["pypy3.10", "3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["pypy3.10", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
         os: [windows-latest, macos-latest, ubuntu-latest]
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           allow-prereleases: true
           cache: pip
-
 
       - name: Install dependencies
         run: |
@@ -37,7 +36,6 @@ jobs:
 
       - name: Test CLI
         if: matrix.os == 'ubuntu-latest'
-        shell: bash
         run: |
           tox -e cli
 
