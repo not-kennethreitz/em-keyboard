@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import argparse
 import random
-from unittest.mock import call, patch
+from unittest.mock import MagicMock, call, patch
 
 import pytest
 
-from em_keyboard import cli, copier
+from em_keyboard import cli, copier  # type: ignore[import-untyped]
 
 
 @pytest.mark.parametrize(
@@ -20,7 +20,7 @@ from em_keyboard import cli, copier
 )
 @patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
-def test_star(mock_print, mock_argparse, test_name):
+def test_star(mock_print: MagicMock, mock_argparse: MagicMock, test_name: str) -> None:
     # Arrange
     mock_argparse.return_value = argparse.Namespace(
         name=[test_name], no_copy=None, search=False, random=False
@@ -41,7 +41,7 @@ def test_star(mock_print, mock_argparse, test_name):
 
 @patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
-def test_not_found(mock_print, mock_argparse):
+def test_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
     mock_argparse.return_value = argparse.Namespace(
         name=["xxx"], no_copy=None, search=False, random=False
@@ -58,7 +58,7 @@ def test_not_found(mock_print, mock_argparse):
 
 @patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
-def test_no_copy(mock_print, mock_argparse):
+def test_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
     mock_argparse.return_value = argparse.Namespace(
         name=["star"], no_copy=True, search=False, random=False
@@ -76,7 +76,7 @@ def test_no_copy(mock_print, mock_argparse):
 
 @patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
-def test_search_star(mock_print, mock_argparse):
+def test_search_star(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
     mock_argparse.return_value = argparse.Namespace(
         name=["star"], no_copy=None, search=True, random=False
@@ -100,7 +100,9 @@ def test_search_star(mock_print, mock_argparse):
 
 @patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
-def test_search_single_result_is_copied(mock_print, mock_argparse):
+def test_search_single_result_is_copied(
+    mock_print: MagicMock, mock_argparse: MagicMock
+) -> None:
     # Arrange
     mock_argparse.return_value = argparse.Namespace(
         name=["ukraine"], no_copy=None, search=True, random=False
@@ -121,7 +123,7 @@ def test_search_single_result_is_copied(mock_print, mock_argparse):
 
 @patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
-def test_search_not_found(mock_print, mock_argparse):
+def test_search_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
     mock_argparse.return_value = argparse.Namespace(
         name=["twenty_o_clock"], no_copy=None, search=True, random=False
@@ -139,7 +141,7 @@ def test_search_not_found(mock_print, mock_argparse):
 
 @patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
-def test_random(mock_print, mock_argparse):
+def test_random(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
     mock_argparse.return_value = argparse.Namespace(
         name=None, no_copy=None, search=False, random=True
@@ -161,7 +163,7 @@ def test_random(mock_print, mock_argparse):
 
 @patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
-def test_random_no_copy(mock_print, mock_argparse):
+def test_random_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
     mock_argparse.return_value = argparse.Namespace(
         name=None, no_copy=True, search=False, random=True
@@ -180,7 +182,7 @@ def test_random_no_copy(mock_print, mock_argparse):
 
 @patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
-def test_no_name(mock_print, mock_argparse):
+def test_no_name(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
     mock_argparse.return_value = argparse.Namespace(
         name=[], no_copy=None, search=True, random=False

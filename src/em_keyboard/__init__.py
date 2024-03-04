@@ -24,10 +24,10 @@ import re
 import sys
 
 try:
-    import pyperclip as copier
+    import pyperclip as copier  # type: ignore[import]
 except ImportError:
     try:
-        import xerox as copier
+        import xerox as copier  # type: ignore[import]
     except ImportError:
         copier = None
 
@@ -46,12 +46,15 @@ except ImportError:
 
 CUSTOM_EMOJI_PATH = os.path.join(os.path.expanduser("~/.emojis.json"))
 
+# TODO Remove quotes when dropping Python 3.8
+EmojiDict = "dict[str, list[str]]"
 
-def parse_emojis(filename=EMOJI_PATH):
+
+def parse_emojis(filename: str | os.PathLike[str] = EMOJI_PATH) -> EmojiDict:
     return json.load(open(filename, encoding="utf-8"))
 
 
-def translate(lookup: dict, code: str) -> list:
+def translate(lookup: EmojiDict, code: str) -> list[str] | list[None]:
     output = []
     if code[0] == ":" and code[-1] == ":":
         code = code[1:-1]
@@ -61,12 +64,12 @@ def translate(lookup: dict, code: str) -> list:
             output.append(emoji)
             break
     else:
-        output.append(None)
+        return [None]
 
     return output
 
 
-def do_find(lookup: dict, term: str) -> list:
+def do_find(lookup: EmojiDict, term: str) -> list:
     """Match term against keywords."""
     output = []
     seen = set()
@@ -80,7 +83,7 @@ def do_find(lookup: dict, term: str) -> list:
     return output
 
 
-def clean_name(name):
+def clean_name(name: str) -> str:
     """Clean emoji name replacing specials chars by underscore"""
     special_chars = "[-. ]"  # square brackets are part of the regex
     return re.sub(special_chars, "_", name).lower()

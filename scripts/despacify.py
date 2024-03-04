@@ -5,13 +5,13 @@ from __future__ import annotations
 
 import json
 
-from em_keyboard import parse_emojis
+from em_keyboard import EmojiDict, parse_emojis  # type: ignore[import]
 
 INPUT_EMOJILIB_PATH = "src/em_keyboard/emoji-en-US.json"
 OUTPUT_EMOJI_PATH = "src/em_keyboard/emojis.json"
 
 
-def save_emojis(data: dict[str, list[str]], filename: str) -> None:
+def save_emojis(data: EmojiDict, filename: str) -> None:
     with open(filename, "w") as outfile:
         json.dump(data, outfile, indent=None, separators=(",", ":"))
         outfile.write("\n")

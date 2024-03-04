@@ -4,7 +4,7 @@ import shlex
 import subprocess
 
 
-def run(command: str, with_console: bool = True, line_limit: int = None) -> None:
+def run(command: str, with_console: bool = True, line_limit: int | None = None) -> None:
     output = subprocess.run(shlex.split(command), capture_output=True, text=True)
     print()
     if with_console:
