@@ -1,6 +1,7 @@
 """
 Replace spaces in emoji keywords with underscores
 """
+
 from __future__ import annotations
 
 import json
