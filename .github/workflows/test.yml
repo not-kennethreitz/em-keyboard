@@ -2,8 +2,12 @@ name: Test
 
 on: [push, pull_request, workflow_dispatch]
 
+permissions:
+  contents: read
+
 env:
   FORCE_COLOR: 1
+  PIP_DISABLE_PIP_VERSION_CHECK: 1
 
 jobs:
   test:
@@ -27,7 +31,6 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install -U pip
-          python -m pip install -U wheel
           python -m pip install -U tox
 
       - name: Tox tests
@@ -52,7 +55,7 @@ jobs:
         uses: codecov/codecov-action@v3.1.5
         with:
           flags: ${{ matrix.os }}
-          name: ${{ matrix.os }} Python ${{ matrix.python-version }}
+          name: "${{ matrix.os }} Python ${{ matrix.python-version }}"
 
   success:
     needs: test
