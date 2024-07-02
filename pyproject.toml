@@ -15,9 +15,13 @@ keywords = [
   "keyboard",
   "search",
 ]
-license = {text = "ISC"}
-maintainers = [{name = "Hugo van Kemenade"}]
-authors = [{name = "Kenneth Reitz", email = "me@kennethreitz.org"}]
+license = { text = "ISC" }
+maintainers = [
+  { name = "Hugo van Kemenade" },
+]
+authors = [
+  { name = "Kenneth Reitz", email = "me@kennethreitz.org" },
+]
 requires-python = ">=3.8"
 classifiers = [
   "Development Status :: 5 - Production/Stable",
@@ -39,20 +43,16 @@ dynamic = [
   "version",
 ]
 dependencies = [
-  'pyperclip; platform_system == "Darwin"',
-  'pyperclip; platform_system == "Windows"',
+  "pyperclip; platform_system=='Windows'",
 ]
-[project.optional-dependencies]
-tests = [
+optional-dependencies.tests = [
   "pytest",
   "pytest-cov",
 ]
-[project.urls]
-Changelog = "https://github.com/hugovk/em-keyboard/releases"
-Homepage = "https://github.com/hugovk/em-keyboard"
-Source = "https://github.com/hugovk/em-keyboard"
-[project.scripts]
-em = "em_keyboard:cli"
+urls.Changelog = "https://github.com/hugovk/em-keyboard/releases"
+urls.Homepage = "https://github.com/hugovk/em-keyboard"
+urls.Source = "https://github.com/hugovk/em-keyboard"
+scripts.em = "em_keyboard:cli"
 
 [tool.hatch]
 version.source = "vcs"
@@ -63,8 +63,7 @@ local_scheme = "no-local-version"
 [tool.ruff]
 fix = true
 
-[tool.ruff.lint]
-select = [
+lint.select = [
   "C4",     # flake8-comprehensions
   "E",      # pycodestyle errors
   "EM",     # flake8-errmsg
@@ -74,19 +73,24 @@ select = [
   "LOG",    # flake8-logging
   "PGH",    # pygrep-hooks
   "PYI",    # flake8-pyi
-  "RUF100", # unused noqa (yesqa)
   "RUF022", # unsorted-dunder-all
+  "RUF100", # unused noqa (yesqa)
   "UP",     # pyupgrade
   "W",      # pycodestyle warnings
   "YTT",    # flake8-2020
 ]
-ignore = [
+lint.ignore = [
   "E203", # Whitespace before ':'
   "E221", # Multiple spaces before operator
   "E226", # Missing whitespace around arithmetic operator
   "E241", # Multiple spaces after ','
 ]
+lint.isort.known-first-party = [
+  "em_keyboard",
+]
+lint.isort.required-imports = [
+  "from __future__ import annotations",
+]
 
-[tool.ruff.lint.isort]
-known-first-party = ["em_keyboard"]
-required-imports = ["from __future__ import annotations"]
+[tool.pyproject-fmt]
+max_supported_python = "3.13"
