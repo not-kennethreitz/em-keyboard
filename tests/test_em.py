@@ -35,7 +35,7 @@ def test_star(mock_print: MagicMock, mock_argparse: MagicMock, test_name: str) -
         mock_print.assert_called_once_with("Copied! ⭐")
     else:
         mock_print.assert_called_once_with("⭐")
-    assert e.type == SystemExit
+    assert e.type is SystemExit
     assert e.value.code == 0
 
 
@@ -52,7 +52,7 @@ def test_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
 
     # Assert
     mock_print.assert_called_once_with("")
-    assert e.type == SystemExit
+    assert e.type is SystemExit
     assert e.value.code == 1
 
 
@@ -70,7 +70,7 @@ def test_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
 
     # Assert
     mock_print.assert_called_once_with("⭐")
-    assert e.type == SystemExit
+    assert e.type is SystemExit
     assert e.value.code == 0
 
 
@@ -94,7 +94,7 @@ def test_search_star(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Assert
     for arg in expected:
         assert call(arg) in mock_print.call_args_list
-    assert e.type == SystemExit
+    assert e.type is SystemExit
     assert e.value.code == 0
 
 
@@ -117,7 +117,7 @@ def test_search_single_result_is_copied(
         mock_print.assert_called_once_with("Copied! 🇺🇦  flag_ukraine")
     else:
         mock_print.assert_called_once_with("🇺🇦  flag_ukraine")
-    assert e.type == SystemExit
+    assert e.type is SystemExit
     assert e.value.code == 0
 
 
@@ -135,7 +135,7 @@ def test_search_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> No
 
     # Assert
     mock_print.assert_not_called()
-    assert e.type == SystemExit
+    assert e.type is SystemExit
     assert e.value.code == 1
 
 
@@ -157,7 +157,7 @@ def test_random(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
         mock_print.assert_called_once_with("Copied! 😽  kissing_cat")
     else:
         mock_print.assert_called_once_with("😽  kissing_cat")
-    assert e.type == SystemExit
+    assert e.type is SystemExit
     assert e.value.code == 0
 
 
@@ -176,7 +176,7 @@ def test_random_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None
 
     # Assert
     mock_print.assert_called_once_with("😽  kissing_cat")
-    assert e.type == SystemExit
+    assert e.type is SystemExit
     assert e.value.code == 0
 
 
@@ -194,5 +194,5 @@ def test_no_name(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
 
     # Assert
     mock_print.assert_not_called()
-    assert e.type == SystemExit
+    assert e.type is SystemExit
     assert e.value.code == "Error: the 'name' argument is required"
