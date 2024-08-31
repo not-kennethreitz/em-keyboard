@@ -16,7 +16,6 @@ Notes:
 from __future__ import annotations
 
 import argparse
-import importlib.metadata
 import itertools
 import json
 import os
@@ -32,7 +31,9 @@ except ImportError:
     except ImportError:
         copier = None
 
-__version__: str = importlib.metadata.version("em_keyboard")
+from em_keyboard import _version
+
+__version__ = _version.__version__
 
 try:
     from importlib.resources import as_file, files
