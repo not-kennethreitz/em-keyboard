@@ -32,3 +32,6 @@ htmlcov/
 nosetests.xml
 
 .python-version
+
+# hatch-vcs
+src/*/_version.py
