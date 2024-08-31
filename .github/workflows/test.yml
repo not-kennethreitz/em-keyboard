@@ -26,12 +26,13 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           allow-prereleases: true
-          cache: pip
+
+      - name: Install uv
+        uses: hynek/setup-cached-uv@v2
 
       - name: Install dependencies
         run: |
-          python -m pip install -U pip
-          python -m pip install -U tox
+          uv pip install --system -U tox-uv
 
       - name: Tox tests
         run: |
@@ -45,7 +46,7 @@ jobs:
       - name: Test emojis.json is up-to-date
         run: |
           # Install
-          python -m pip install -e .
+          uv pip install --system -e .
           # Regenerate
           python scripts/despacify.py
           # Fail if different
