@@ -16,12 +16,8 @@ keywords = [
   "search",
 ]
 license = { text = "ISC" }
-maintainers = [
-  { name = "Hugo van Kemenade" },
-]
-authors = [
-  { name = "Kenneth Reitz", email = "me@kennethreitz.org" },
-]
+maintainers = [ { name = "Hugo van Kemenade" } ]
+authors = [ { name = "Kenneth Reitz", email = "me@kennethreitz.org" } ]
 requires-python = ">=3.8"
 classifiers = [
   "Development Status :: 5 - Production/Stable",
@@ -39,9 +35,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dynamic = [
-  "version",
-]
+dynamic = [ "version" ]
 dependencies = [
   "pyperclip; platform_system=='Windows'",
 ]
@@ -72,9 +66,11 @@ lint.select = [
   "EM",     # flake8-errmsg
   "F",      # pyflakes errors
   "I",      # isort
+  "ICN",    # flake8-import-conventions
   "ISC",    # flake8-implicit-str-concat
   "LOG",    # flake8-logging
   "PGH",    # pygrep-hooks
+  "PT",     # flake8-pytest-style
   "PYI",    # flake8-pyi
   "RUF022", # unsorted-dunder-all
   "RUF100", # unused noqa (yesqa)
@@ -88,12 +84,17 @@ lint.ignore = [
   "E226", # Missing whitespace around arithmetic operator
   "E241", # Multiple spaces after ','
 ]
-lint.isort.known-first-party = [
-  "em_keyboard",
-]
-lint.isort.required-imports = [
-  "from __future__ import annotations",
-]
+lint.flake8-import-conventions.aliases.datetime = "dt"
+lint.flake8-import-conventions.banned-from = [ "datetime" ]
+lint.isort.known-first-party = [ "em_keyboard" ]
+lint.isort.required-imports = [ "from __future__ import annotations" ]
 
 [tool.pyproject-fmt]
 max_supported_python = "3.13"
+
+[tool.pytest.ini_options]
+filterwarnings = [
+  # Python <= 3.11
+  "ignore:sys.monitoring isn't available, using default core:coverage.exceptions.CoverageWarning",
+]
+testpaths = [ "tests" ]
