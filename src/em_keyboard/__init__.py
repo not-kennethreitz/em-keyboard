@@ -35,21 +35,14 @@ from em_keyboard import _version
 
 __version__ = _version.__version__
 
-try:
-    from importlib.resources import as_file, files
+from importlib.resources import as_file, files
 
-    with as_file(files("em_keyboard").joinpath("emojis.json")) as em_json:
-        EMOJI_PATH = em_json
-except ImportError:
-    from importlib.resources import path
-
-    with path("em_keyboard", "emojis.json") as em_json:
-        EMOJI_PATH = em_json
+with as_file(files("em_keyboard").joinpath("emojis.json")) as em_json:
+    EMOJI_PATH = em_json
 
 CUSTOM_EMOJI_PATH = os.path.join(os.path.expanduser("~/.emojis.json"))
 
-# TODO Remove quotes when dropping Python 3.8
-EmojiDict = "dict[str, list[str]]"
+EmojiDict = dict[str, list[str]]
 
 
 def parse_emojis(filename: str | os.PathLike[str] = EMOJI_PATH) -> EmojiDict:
