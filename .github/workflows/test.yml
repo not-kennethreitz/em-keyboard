@@ -53,7 +53,7 @@ jobs:
           git diff --name-only --exit-code
 
       - name: Upload coverage
-        uses: codecov/codecov-action@v3.1.5
+        uses: codecov/codecov-action@v5.0.7
         with:
           flags: ${{ matrix.os }}
           name: "${{ matrix.os }} Python ${{ matrix.python-version }}"
