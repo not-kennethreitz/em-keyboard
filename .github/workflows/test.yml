@@ -4,7 +4,6 @@ on: [push, pull_request, workflow_dispatch]
 
 env:
   FORCE_COLOR: 1
-  PIP_DISABLE_PIP_VERSION_CHECK: 1
 
 jobs:
   test:
@@ -29,18 +28,14 @@ jobs:
       - name: Install uv
         uses: hynek/setup-cached-uv@v2
 
-      - name: Install dependencies
-        run: |
-          uv pip install --system -U tox-uv
-
       - name: Tox tests
         run: |
-          tox -e py
+          uvx --with tox-uv tox -e py
 
       - name: Test CLI
         if: matrix.os == 'ubuntu-latest'
         run: |
-          tox -e cli
+          uvx --with tox-uv tox -e cli
 
       - name: Test emojis.json is up-to-date
         run: |
@@ -55,7 +50,7 @@ jobs:
         uses: codecov/codecov-action@v5.0.7
         with:
           flags: ${{ matrix.os }}
-          name: "${{ matrix.os }} Python ${{ matrix.python-version }}"
+          name: ${{ matrix.os }} Python ${{ matrix.python-version }}
 
   success:
     needs: test
