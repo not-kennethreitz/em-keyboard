@@ -2,11 +2,36 @@ from __future__ import annotations
 
 import argparse
 import random
+import sys
 from unittest.mock import MagicMock, call, patch
 
 import pytest
 
-from em_keyboard import cli, copier  # type: ignore[import-untyped]
+import em_keyboard  # type: ignore[import-untyped]
+
+if sys.platform == "linux" and em_keyboard.copier:
+
+    class MockCopier:
+        """A mock `copier` module.
+
+        On Linux, it seems difficult to have the `copier` module run
+        successfully in tox and CI environments, so mock it away,
+        for now.
+
+        The problems to solve, if undoing this mocking probably include:
+        - pytest and/or tox capturing stderr/stdout/stdin
+        - using `allowlist_externals` tox conf to allow the various
+          clipboard tools (xclip, wl-copy, wl-paste etc.)
+        - CI environment not having a clipboard
+
+        Note that this list mostly consists of guesses by someone
+        who doesn't understand the problem very well :)
+        """
+
+        def copy(self, s: str) -> None:
+            pass
+
+    em_keyboard.copier = MockCopier()
 
 
 @pytest.mark.parametrize(
@@ -28,10 +53,10 @@ def test_star(mock_print: MagicMock, mock_argparse: MagicMock, test_name: str) -
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        em_keyboard.cli()
 
     # Assert
-    if copier:
+    if em_keyboard.copier:
         mock_print.assert_called_once_with("Copied! ⭐")
     else:
         mock_print.assert_called_once_with("⭐")
@@ -48,7 +73,7 @@ def test_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     )
 
     with pytest.raises(SystemExit) as e:
-        cli()
+        em_keyboard.cli()
 
     # Assert
     mock_print.assert_called_once_with("")
@@ -66,7 +91,7 @@ def test_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        em_keyboard.cli()
 
     # Assert
     mock_print.assert_called_once_with("⭐")
@@ -89,7 +114,7 @@ def test_search_star(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        em_keyboard.cli()
 
     # Assert
     for arg in expected:
@@ -110,10 +135,10 @@ def test_search_single_result_is_copied(
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        em_keyboard.cli()
 
     # Assert
-    if copier:
+    if em_keyboard.copier:
         mock_print.assert_called_once_with("Copied! 🇺🇦  flag_ukraine")
     else:
         mock_print.assert_called_once_with("🇺🇦  flag_ukraine")
@@ -131,7 +156,7 @@ def test_search_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> No
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        em_keyboard.cli()
 
     # Assert
     mock_print.assert_not_called()
@@ -171,10 +196,10 @@ def test_random(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        em_keyboard.cli()
 
     # Assert
-    if copier:
+    if em_keyboard.copier:
         mock_print.assert_called_once_with("Copied! 😽  kissing_cat")
     else:
         mock_print.assert_called_once_with("😽  kissing_cat")
@@ -193,7 +218,7 @@ def test_random_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        em_keyboard.cli()
 
     # Assert
     mock_print.assert_called_once_with("😽  kissing_cat")
@@ -211,7 +236,7 @@ def test_no_name(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        em_keyboard.cli()
 
     # Assert
     mock_print.assert_not_called()
