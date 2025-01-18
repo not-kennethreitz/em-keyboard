@@ -141,6 +141,27 @@ def test_search_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> No
 
 @patch("em_keyboard.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
+def test_search_multi_word(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
+    # Arrange
+    mock_argparse.return_value = argparse.Namespace(
+        name=["big", "tent"], no_copy=None, search=True, random=False
+    )
+
+    # Act
+    with pytest.raises(SystemExit) as e:
+        cli()
+
+    # Assert
+    if copier:
+        mock_print.assert_called_once_with("Copied! 🎪  circus_tent")
+    else:
+        mock_print.assert_called_once_with("🎪  circus_tent")
+    assert e.type is SystemExit
+    assert e.value.code == 0
+
+
+@patch("em_keyboard.argparse.ArgumentParser.parse_args")
+@patch("builtins.print")
 def test_random(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
     mock_argparse.return_value = argparse.Namespace(
