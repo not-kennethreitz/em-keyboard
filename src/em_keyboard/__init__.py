@@ -64,18 +64,14 @@ def translate(lookup: EmojiDict, code: str) -> list[str] | list[None]:
     return output
 
 
-def do_find(lookup: EmojiDict, term: str) -> list:
-    """Match term against keywords."""
-    output = []
-    seen = set()
-
-    for emoji, keywords in lookup.items():
-        for keyword in keywords:
-            if term in keyword and emoji not in seen:
-                output.append((keywords[0], emoji))
-                seen.add(emoji)
-
-    return output
+def do_find(lookup: EmojiDict, terms: tuple[str, ...]) -> list[tuple[str, str]]:
+    """Match terms against keywords."""
+    assert terms, "at least one search term required"
+    return [
+        (keywords[0], emoji)
+        for emoji, keywords in lookup.items()
+        if all(any(term in kw for kw in keywords) for term in terms)
+    ]
 
 
 def clean_name(name: str) -> str:
@@ -128,7 +124,7 @@ def cli() -> None:
     # Search mode.
     if args.search:
         # Lookup the search term.
-        found = do_find(lookup, names[0])
+        found = do_find(lookup, names)
 
         # print them to the screen.
         for name, emoji in found:
