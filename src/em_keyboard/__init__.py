@@ -23,14 +23,6 @@ import random
 import re
 import sys
 
-try:
-    import pyperclip as copier  # type: ignore[import]
-except ImportError:
-    try:
-        import xerox as copier  # type: ignore[import]
-    except ImportError:
-        copier = None
-
 from em_keyboard import _version
 
 __version__ = _version.__version__
@@ -43,6 +35,24 @@ with as_file(files("em_keyboard").joinpath("emojis.json")) as em_json:
 CUSTOM_EMOJI_PATH = os.path.join(os.path.expanduser("~/.emojis.json"))
 
 EmojiDict = dict[str, list[str]]
+
+
+def try_copy_to_clipboard(text: str) -> bool:
+    try:
+        import pyperclip  # type: ignore[import]
+    except ModuleNotFoundError:
+        pyperclip = None
+        try:
+            import xerox  # type: ignore[import]
+        except ModuleNotFoundError:
+            return False
+    copier = pyperclip if pyperclip else xerox
+    copier_error = pyperclip.PyperclipException if pyperclip else xerox.ToolNotFound
+    try:
+        copier.copy(text)
+    except copier_error:
+        return False
+    return True
 
 
 def parse_emojis(filename: str | os.PathLike[str] = EMOJI_PATH) -> EmojiDict:
@@ -106,11 +116,11 @@ def cli() -> None:
     if args.random:
         emoji, keywords = random.choice(list(lookup.items()))
         name = keywords[0]
-        if copier and not no_copy:
-            copier.copy(emoji)
-            print(f"Copied! {emoji}  {name}")
+        if not no_copy:
+            copied = try_copy_to_clipboard(emoji)
         else:
-            print(f"{emoji}  {name}")
+            copied = False
+        print(f"Copied! {emoji}  {name}" if copied else f"{emoji}  {name}")
         sys.exit(0)
 
     if not args.name:
@@ -131,11 +141,11 @@ def cli() -> None:
             # Some registered emoji have no value.
             try:
                 # Copy the results (and say so!) to the clipboard.
-                if copier and not no_copy and len(found) == 1:
-                    copier.copy(emoji)
-                    print(f"Copied! {emoji}  {name}")
+                if not no_copy and len(found) == 1:
+                    copied = try_copy_to_clipboard(emoji)
                 else:
-                    print(f"{emoji}  {name}")
+                    copied = False
+                print(f"Copied! {emoji}  {name}" if copied else f"{emoji}  {name}")
 
             # Sometimes, an emoji will have no value.
             except TypeError:
@@ -160,13 +170,11 @@ def cli() -> None:
     results = "".join(results)
 
     # Copy the results (and say so!) to the clipboard.
-    if copier and not no_copy and not missing:
-        copier.copy(results)
-        print(f"Copied! {print_results}")
-
-    # Script-kiddies.
+    if not no_copy and not missing:
+        copied = try_copy_to_clipboard(results)
     else:
-        print(print_results)
+        copied = False
+    print(f"Copied! {print_results}" if copied else print_results)
 
     sys.exit(int(missing))
 
