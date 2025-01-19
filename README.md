@@ -78,7 +78,15 @@ At this time, **em** requires Python and pip:
 python3 -m pip install em-keyboard
 ```
 
-That's it!
+On Linux, an additional dependency is required for automatic copying to clipboard. This
+would be either [`xclip`](https://github.com/astrand/xclip) in an X11 session or
+[`wl-clipboard`](https://github.com/bugaevc/wl-clipboard) in a Wayland session. On a
+Debian-based distribution these are installable with:
+
+```sh
+sudo apt install xclip
+sudo apt install wl-clipboard
+```
 
 ## Tests
 

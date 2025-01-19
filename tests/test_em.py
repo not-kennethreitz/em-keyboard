@@ -6,7 +6,9 @@ from unittest.mock import MagicMock, call, patch
 
 import pytest
 
-from em_keyboard import cli, copier  # type: ignore[import-untyped]
+from em_keyboard import cli, try_copy_to_clipboard  # type: ignore[import-untyped]
+
+copier_deps_installed = try_copy_to_clipboard("checking if copy works")
 
 
 @pytest.mark.parametrize(
@@ -31,7 +33,7 @@ def test_star(mock_print: MagicMock, mock_argparse: MagicMock, test_name: str) -
         cli()
 
     # Assert
-    if copier:
+    if copier_deps_installed:
         mock_print.assert_called_once_with("Copied! ⭐")
     else:
         mock_print.assert_called_once_with("⭐")
@@ -113,7 +115,7 @@ def test_search_single_result_is_copied(
         cli()
 
     # Assert
-    if copier:
+    if copier_deps_installed:
         mock_print.assert_called_once_with("Copied! 🇺🇦  flag_ukraine")
     else:
         mock_print.assert_called_once_with("🇺🇦  flag_ukraine")
@@ -152,7 +154,7 @@ def test_search_multi_word(mock_print: MagicMock, mock_argparse: MagicMock) -> N
         cli()
 
     # Assert
-    if copier:
+    if copier_deps_installed:
         mock_print.assert_called_once_with("Copied! 🎪  circus_tent")
     else:
         mock_print.assert_called_once_with("🎪  circus_tent")
@@ -174,7 +176,7 @@ def test_random(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
         cli()
 
     # Assert
-    if copier:
+    if copier_deps_installed:
         mock_print.assert_called_once_with("Copied! 😽  kissing_cat")
     else:
         mock_print.assert_called_once_with("😽  kissing_cat")
