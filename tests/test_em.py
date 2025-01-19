@@ -174,10 +174,10 @@ def test_search_multi_word(mock_print: MagicMock, mock_argparse: MagicMock) -> N
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        em_keyboard.cli()
 
     # Assert
-    if copier:
+    if em_keyboard.copier:
         mock_print.assert_called_once_with("Copied! 🎪  circus_tent")
     else:
         mock_print.assert_called_once_with("🎪  circus_tent")
