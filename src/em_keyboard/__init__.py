@@ -16,10 +16,7 @@ Notes:
 from __future__ import annotations
 
 import argparse
-import json
 import os
-import random
-import re
 import sys
 
 from em_keyboard import _version
@@ -55,6 +52,8 @@ def try_copy_to_clipboard(text: str) -> bool:
 
 
 def parse_emojis(filename: str | os.PathLike[str] = EMOJI_PATH) -> EmojiDict:
+    import json
+
     return json.load(open(filename, encoding="utf-8"))
 
 
@@ -80,8 +79,7 @@ def do_find(lookup: EmojiDict, terms: tuple[str, ...]) -> list[tuple[str, str]]:
 
 def clean_name(name: str) -> str:
     """Clean emoji name replacing specials chars by underscore"""
-    special_chars = "[-. ]"  # square brackets are part of the regex
-    return re.sub(special_chars, "_", name).lower()
+    return name.replace("-", "_").replace(".", "_").replace(" ", "_").lower()
 
 
 def cli() -> None:
@@ -101,6 +99,9 @@ def cli() -> None:
     args = parser.parse_args()
     no_copy = args.no_copy
 
+    if not args.name and not args.random:
+        sys.exit("Error: the 'name' argument is required")
+
     # Grab the lookup dictionary.
     lookup = parse_emojis()
 
@@ -108,6 +109,8 @@ def cli() -> None:
         lookup.update(parse_emojis(CUSTOM_EMOJI_PATH))
 
     if args.random:
+        import random
+
         emoji, keywords = random.choice(list(lookup.items()))
         name = keywords[0]
         if not no_copy:
@@ -116,9 +119,6 @@ def cli() -> None:
             copied = False
         print(f"Copied! {emoji}  {name}" if copied else f"{emoji}  {name}")
         sys.exit(0)
-
-    if not args.name:
-        sys.exit("Error: the 'name' argument is required")
 
     names = tuple(map(clean_name, args.name))
 
