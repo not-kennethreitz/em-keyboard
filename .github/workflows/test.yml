@@ -2,6 +2,8 @@ name: Test
 
 on: [push, pull_request, workflow_dispatch]
 
+permissions: {}
+
 env:
   FORCE_COLOR: 1
 
@@ -26,7 +28,7 @@ jobs:
           allow-prereleases: true
 
       - name: Install uv
-        uses: hynek/setup-cached-uv@v2
+        uses: astral-sh/setup-uv@v5
 
       - name: Tox tests
         run: |
