@@ -16,7 +16,6 @@ Notes:
 from __future__ import annotations
 
 import argparse
-import itertools
 import json
 import os
 import random
@@ -59,19 +58,14 @@ def parse_emojis(filename: str | os.PathLike[str] = EMOJI_PATH) -> EmojiDict:
     return json.load(open(filename, encoding="utf-8"))
 
 
-def translate(lookup: EmojiDict, code: str) -> list[str] | list[None]:
-    output = []
+def translate(lookup: EmojiDict, code: str) -> str | None:
     if code[0] == ":" and code[-1] == ":":
         code = code[1:-1]
 
     for emoji, keywords in lookup.items():
         if code == keywords[0]:
-            output.append(emoji)
-            break
-    else:
-        return [None]
-
-    return output
+            return emoji
+    return None
 
 
 def do_find(lookup: EmojiDict, terms: tuple[str, ...]) -> list[tuple[str, str]]:
@@ -157,13 +151,12 @@ def cli() -> None:
             sys.exit(1)
 
     # Process the results.
-    results = (translate(lookup, name) for name in names)
-    results = list(itertools.chain.from_iterable(results))
+    results = tuple(translate(lookup, name) for name in names)
 
     if None in results:
         no_copy = True
         missing = True
-        results = (r for r in results if r)
+        results = tuple(r for r in results if r)
 
     # Prepare the result strings.
     print_results = " ".join(results)
