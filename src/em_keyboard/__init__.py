@@ -101,6 +101,9 @@ def cli() -> None:
     args = parser.parse_args()
     no_copy = args.no_copy
 
+    if not args.name and not args.random:
+        sys.exit("Error: the 'name' argument is required")
+
     # Grab the lookup dictionary.
     lookup = parse_emojis()
 
@@ -118,9 +121,6 @@ def cli() -> None:
             copied = False
         print(f"Copied! {emoji}  {name}" if copied else f"{emoji}  {name}")
         sys.exit(0)
-
-    if not args.name:
-        sys.exit("Error: the 'name' argument is required")
 
     names = tuple(map(clean_name, args.name))
 
