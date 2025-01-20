@@ -167,7 +167,9 @@ def cli() -> None:
         copied = try_copy_to_clipboard(results)
     else:
         copied = False
-    print(f"Copied! {print_results}" if copied else print_results)
+
+    if print_results:
+        print(f"Copied! {print_results}" if copied else print_results)
 
     sys.exit(int(missing))
 

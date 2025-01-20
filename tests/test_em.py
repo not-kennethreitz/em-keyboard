@@ -53,7 +53,7 @@ def test_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
         cli()
 
     # Assert
-    mock_print.assert_called_once_with("")
+    mock_print.assert_not_called()
     assert e.type is SystemExit
     assert e.value.code == 1
 
