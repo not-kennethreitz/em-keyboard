@@ -54,6 +54,11 @@ version.source = "vcs"
 [tool.hatch.build.hooks.vcs]
 version-file = "src/em_keyboard/_version.py"
 
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "src/em_keyboard/emoji-en-US.json", # temporary copy of "src/em_keyboard/emojis.json"
+]
+
 [tool.hatch.version.raw-options]
 local_scheme = "no-local-version"
 
