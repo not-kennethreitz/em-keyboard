@@ -17,7 +17,6 @@ from __future__ import annotations
 
 import argparse
 import os
-import re
 import sys
 
 from em_keyboard import _version
@@ -80,8 +79,7 @@ def do_find(lookup: EmojiDict, terms: tuple[str, ...]) -> list[tuple[str, str]]:
 
 def clean_name(name: str) -> str:
     """Clean emoji name replacing specials chars by underscore"""
-    special_chars = "[-. ]"  # square brackets are part of the regex
-    return re.sub(special_chars, "_", name).lower()
+    return name.replace("-", "_").replace(".", "_").replace(" ", "_").lower()
 
 
 def cli() -> None:
