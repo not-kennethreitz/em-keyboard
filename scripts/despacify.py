@@ -6,14 +6,14 @@ from __future__ import annotations
 
 import json
 
-from em_keyboard import EmojiDict, parse_emojis  # type: ignore[import]
+from em_keyboard import EmojiDict, clean_name, parse_emojis  # type: ignore[import]
 
 INPUT_EMOJILIB_PATH = "src/em_keyboard/emoji-en-US.json"
 OUTPUT_EMOJI_PATH = "src/em_keyboard/emojis.json"
 
 
 def save_emojis(data: EmojiDict, filename: str) -> None:
-    with open(filename, "w") as outfile:
+    with open(filename, "w", encoding="utf-8") as outfile:
         json.dump(data, outfile, indent=None, separators=(",", ":"))
         outfile.write("\n")
 
@@ -21,7 +21,7 @@ def save_emojis(data: EmojiDict, filename: str) -> None:
 def main() -> None:
     data = parse_emojis(INPUT_EMOJILIB_PATH)
     for emoji, keywords in data.items():
-        keywords = [keyword.replace(" ", "_") for keyword in keywords]
+        keywords = [clean_name(keyword) for keyword in keywords]
         data[emoji] = keywords
     save_emojis(data, OUTPUT_EMOJI_PATH)
     print(f"Emojis saved to {OUTPUT_EMOJI_PATH}")
