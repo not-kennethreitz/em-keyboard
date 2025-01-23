@@ -6,7 +6,7 @@ requires = [
 ]
 
 [project]
-name = "em"
+name = "em-keyboard"
 description = "The CLI Emoji Keyboard"
 readme = "README.md"
 keywords = [
