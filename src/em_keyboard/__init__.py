@@ -79,7 +79,7 @@ def do_find(lookup: EmojiDict, terms: tuple[str, ...]) -> list[tuple[str, str]]:
 
 def clean_name(name: str) -> str:
     """Clean emoji name replacing specials chars by underscore"""
-    return name.replace("-", "_").replace(".", "_").replace(" ", "_").lower()
+    return name.replace("-", "_").replace(" ", "_").lower()
 
 
 def cli() -> None:
