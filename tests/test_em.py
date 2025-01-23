@@ -20,7 +20,7 @@ copier_deps_installed = try_copy_to_clipboard("checking if copy works")
         ":Star:",
     ],
 )
-@patch("em_keyboard.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_star(mock_print: MagicMock, mock_argparse: MagicMock, test_name: str) -> None:
     # Arrange
@@ -30,7 +30,7 @@ def test_star(mock_print: MagicMock, mock_argparse: MagicMock, test_name: str) -
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        cli.main()
 
     # Assert
     if copier_deps_installed:
@@ -41,7 +41,7 @@ def test_star(mock_print: MagicMock, mock_argparse: MagicMock, test_name: str) -
     assert e.value.code == 0
 
 
-@patch("em_keyboard.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
@@ -50,7 +50,7 @@ def test_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     )
 
     with pytest.raises(SystemExit) as e:
-        cli()
+        cli.main()
 
     # Assert
     mock_print.assert_not_called()
@@ -58,7 +58,7 @@ def test_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     assert e.value.code == 1
 
 
-@patch("em_keyboard.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
@@ -68,7 +68,7 @@ def test_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        cli.main()
 
     # Assert
     mock_print.assert_called_once_with("⭐")
@@ -76,7 +76,7 @@ def test_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     assert e.value.code == 0
 
 
-@patch("em_keyboard.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_search_star(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
@@ -91,7 +91,7 @@ def test_search_star(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        cli.main()
 
     # Assert
     for arg in expected:
@@ -100,7 +100,7 @@ def test_search_star(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     assert e.value.code == 0
 
 
-@patch("em_keyboard.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_search_single_result_is_copied(
     mock_print: MagicMock, mock_argparse: MagicMock
@@ -112,7 +112,7 @@ def test_search_single_result_is_copied(
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        cli.main()
 
     # Assert
     if copier_deps_installed:
@@ -123,7 +123,7 @@ def test_search_single_result_is_copied(
     assert e.value.code == 0
 
 
-@patch("em_keyboard.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_search_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
@@ -133,7 +133,7 @@ def test_search_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> No
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        cli.main()
 
     # Assert
     mock_print.assert_not_called()
@@ -141,7 +141,7 @@ def test_search_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> No
     assert e.value.code == 1
 
 
-@patch("em_keyboard.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_search_multi_word(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
@@ -151,7 +151,7 @@ def test_search_multi_word(mock_print: MagicMock, mock_argparse: MagicMock) -> N
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        cli.main()
 
     # Assert
     if copier_deps_installed:
@@ -162,7 +162,7 @@ def test_search_multi_word(mock_print: MagicMock, mock_argparse: MagicMock) -> N
     assert e.value.code == 0
 
 
-@patch("em_keyboard.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_random(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
@@ -173,7 +173,7 @@ def test_random(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        cli.main()
 
     # Assert
     if copier_deps_installed:
@@ -184,7 +184,7 @@ def test_random(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     assert e.value.code == 0
 
 
-@patch("em_keyboard.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_random_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
@@ -195,7 +195,7 @@ def test_random_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        cli.main()
 
     # Assert
     mock_print.assert_called_once_with("😽  kissing_cat")
@@ -203,7 +203,7 @@ def test_random_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None
     assert e.value.code == 0
 
 
-@patch("em_keyboard.argparse.ArgumentParser.parse_args")
+@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_no_name(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
@@ -213,7 +213,7 @@ def test_no_name(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
 
     # Act
     with pytest.raises(SystemExit) as e:
-        cli()
+        cli.main()
 
     # Assert
     mock_print.assert_not_called()
