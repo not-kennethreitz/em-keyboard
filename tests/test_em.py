@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, call, patch
 
 import pytest
 
-from em_keyboard import cli, try_copy_to_clipboard  # type: ignore[import-untyped]
+from em import cli, try_copy_to_clipboard  # type: ignore[import-untyped]
 
 copier_deps_installed = try_copy_to_clipboard("checking if copy works")
 
@@ -20,7 +20,7 @@ copier_deps_installed = try_copy_to_clipboard("checking if copy works")
         ":Star:",
     ],
 )
-@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
+@patch("em.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_star(mock_print: MagicMock, mock_argparse: MagicMock, test_name: str) -> None:
     # Arrange
@@ -41,7 +41,7 @@ def test_star(mock_print: MagicMock, mock_argparse: MagicMock, test_name: str) -
     assert e.value.code == 0
 
 
-@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
+@patch("em.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
@@ -58,7 +58,7 @@ def test_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     assert e.value.code == 1
 
 
-@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
+@patch("em.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
@@ -76,7 +76,7 @@ def test_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     assert e.value.code == 0
 
 
-@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
+@patch("em.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_search_star(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
@@ -100,7 +100,7 @@ def test_search_star(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     assert e.value.code == 0
 
 
-@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
+@patch("em.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_search_single_result_is_copied(
     mock_print: MagicMock, mock_argparse: MagicMock
@@ -123,7 +123,7 @@ def test_search_single_result_is_copied(
     assert e.value.code == 0
 
 
-@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
+@patch("em.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_search_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
@@ -141,7 +141,7 @@ def test_search_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> No
     assert e.value.code == 1
 
 
-@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
+@patch("em.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_search_multi_word(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
@@ -162,7 +162,7 @@ def test_search_multi_word(mock_print: MagicMock, mock_argparse: MagicMock) -> N
     assert e.value.code == 0
 
 
-@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
+@patch("em.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_random(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
@@ -184,7 +184,7 @@ def test_random(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     assert e.value.code == 0
 
 
-@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
+@patch("em.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_random_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange
@@ -203,7 +203,7 @@ def test_random_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None
     assert e.value.code == 0
 
 
-@patch("em_keyboard.cli.argparse.ArgumentParser.parse_args")
+@patch("em.cli.argparse.ArgumentParser.parse_args")
 @patch("builtins.print")
 def test_no_name(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     # Arrange

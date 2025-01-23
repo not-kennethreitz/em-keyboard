@@ -8,4 +8,4 @@ exclude_also =
 
 [run]
 omit =
-    **/em_keyboard/__main__.py
+    **/em/__main__.py

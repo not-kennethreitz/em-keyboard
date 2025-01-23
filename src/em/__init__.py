@@ -18,11 +18,11 @@ from __future__ import annotations
 import os
 from importlib.resources import as_file, files
 
-from em_keyboard import _version
+from em import _version
 
 __version__ = _version.__version__
 
-with as_file(files("em_keyboard").joinpath("emojis.json")) as em_json:
+with as_file(files("em").joinpath("emojis.json")) as em_json:
     EMOJI_PATH = em_json
 
 CUSTOM_EMOJI_PATH = os.path.join(os.path.expanduser("~/.emojis.json"))

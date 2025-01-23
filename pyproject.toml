@@ -6,7 +6,7 @@ requires = [
 ]
 
 [project]
-name = "em-keyboard"
+name = "em"
 description = "The CLI Emoji Keyboard"
 readme = "README.md"
 keywords = [
@@ -46,17 +46,17 @@ optional-dependencies.tests = [
 urls.Changelog = "https://github.com/hugovk/em-keyboard/releases"
 urls.Homepage = "https://github.com/hugovk/em-keyboard"
 urls.Source = "https://github.com/hugovk/em-keyboard"
-scripts.em = "em_keyboard.cli:main"
+scripts.em = "em.cli:main"
 
 [tool.hatch]
 version.source = "vcs"
 
 [tool.hatch.build.hooks.vcs]
-version-file = "src/em_keyboard/_version.py"
+version-file = "src/em/_version.py"
 
 [tool.hatch.build.targets.sdist]
 exclude = [
-  "src/em_keyboard/emoji-en-US.json", # temporary copy of "src/em_keyboard/emojis.json"
+  "src/em/emoji-en-US.json", # temporary copy of "src/em/emojis.json"
 ]
 
 [tool.hatch.version.raw-options]
@@ -92,7 +92,7 @@ lint.ignore = [
 ]
 lint.flake8-import-conventions.aliases.datetime = "dt"
 lint.flake8-import-conventions.banned-from = [ "datetime" ]
-lint.isort.known-first-party = [ "em_keyboard" ]
+lint.isort.known-first-party = [ "em" ]
 lint.isort.required-imports = [ "from __future__ import annotations" ]
 
 [tool.pyproject-fmt]

@@ -23,7 +23,7 @@ repos:
       - id: check-yaml
       - id: debug-statements
       - id: end-of-file-fixer
-        exclude: ^src/em_keyboard/emojis.json$
+        exclude: ^src/em/emojis.json$
       - id: forbid-submodules
       - id: trailing-whitespace
 
@@ -63,7 +63,7 @@ repos:
     hooks:
       - id: prettier
         args: [--prose-wrap=always, --print-width=88]
-        exclude: ^src/em_keyboard/emoji.*\.json$
+        exclude: ^src/em/emoji.*\.json$
 
   - repo: meta
     hooks:

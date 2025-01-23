@@ -1,5 +1,5 @@
 """
-CLI for em_keyboard
+CLI for em
 """
 
 from __future__ import annotations
@@ -8,7 +8,7 @@ import argparse
 import os
 import sys
 
-from em_keyboard import (
+from em import (
     CUSTOM_EMOJI_PATH,
     __version__,
     clean_name,
