@@ -11,51 +11,52 @@ copier_deps_installed = try_copy_to_clipboard("checking if copy works")
 
 
 @pytest.mark.parametrize(
-    "test_name",
+    "test_args, expected_output",
     [
-        "star",
-        ":star:",
-        "STAR",
-        ":Star:",
+        ("star", "⭐"),
+        (":star:", "⭐"),
+        ("STAR", "⭐"),
+        (":Star:", "⭐"),
+        ("--search ukraine", "🇺🇦  flag_ukraine"),
+        ("--random", "😽  kissing_cat"),
+        ("--random --no-copy", "😽  kissing_cat"),
+        ("--search big tent", "🎪  circus_tent"),
     ],
 )
-def test_star(capsys: pytest.LogCaptureFixture, test_name: str) -> None:
+def test_success(
+    test_args: str, expected_output: str, capsys: pytest.LogCaptureFixture
+) -> None:
+    # Arrange
+    random.seed(123)
+
     # Act
-    ret = cli.main(shlex.split(test_name))
+    ret = cli.main(shlex.split(test_args))
 
     # Assert
     output = capsys.readouterr().out.rstrip()
-    if copier_deps_installed:
-        assert output == "Copied! ⭐"
+    if copier_deps_installed and "--no-copy" not in test_args:
+        assert output == f"Copied! {expected_output}"
     else:
-        assert output == "⭐"
+        assert output == expected_output
     assert ret == 0
 
 
-def test_not_found(capsys: pytest.LogCaptureFixture) -> None:
-    # Arrange
-    args = "xxx --no-copy"
-
+@pytest.mark.parametrize(
+    "test_args",
+    [
+        "xxx --no-copy",
+        "--search twenty_o_clock",
+        "--search",
+    ],
+)
+def test_error(test_args: str, capsys: pytest.LogCaptureFixture) -> None:
     # Act
-    ret = cli.main(shlex.split(args))
+    ret = cli.main(shlex.split(test_args))
 
     # Assert
     output = capsys.readouterr().out.rstrip()
     assert output == ""
     assert ret != 0
-
-
-def test_no_copy(capsys: pytest.LogCaptureFixture) -> None:
-    # Arrange
-    args = "star --no-copy"
-
-    # Act
-    ret = cli.main(shlex.split(args))
-
-    # Assert
-    output = capsys.readouterr().out.rstrip()
-    assert output == "⭐"
-    assert ret == 0
 
 
 def test_search_star(capsys: pytest.LogCaptureFixture) -> None:
@@ -75,92 +76,3 @@ def test_search_star(capsys: pytest.LogCaptureFixture) -> None:
     for arg in expected:
         assert arg in output
     assert ret == 0
-
-
-def test_search_single_result_is_copied(capsys: pytest.LogCaptureFixture) -> None:
-    # Arrange
-    args = "--search ukraine"
-
-    # Act
-    ret = cli.main(shlex.split(args))
-
-    # Assert
-    output = capsys.readouterr().out.rstrip()
-    if copier_deps_installed:
-        assert output == "Copied! 🇺🇦  flag_ukraine"
-    else:
-        assert output == "🇺🇦  flag_ukraine"
-    assert ret == 0
-
-
-def test_search_not_found(capsys: pytest.LogCaptureFixture) -> None:
-    # Arrange
-    args = "--search twenty_o_clock"
-
-    # Act
-    ret = cli.main(shlex.split(args))
-
-    # Assert
-    output = capsys.readouterr().out.rstrip()
-    assert output == ""
-    assert ret != 0
-
-
-def test_search_multi_word(capsys: pytest.LogCaptureFixture) -> None:
-    # Arrange
-    args = "--search big tent"
-
-    # Act
-    ret = cli.main(shlex.split(args))
-
-    # Assert
-    output = capsys.readouterr().out.rstrip()
-    if copier_deps_installed:
-        assert output == "Copied! 🎪  circus_tent"
-    else:
-        assert output == "🎪  circus_tent"
-    assert ret == 0
-
-
-def test_random(capsys: pytest.LogCaptureFixture) -> None:
-    # Arrange
-    args = "--random"
-    random.seed(123)
-
-    # Act
-    ret = cli.main(shlex.split(args))
-
-    # Assert
-    output = capsys.readouterr().out.rstrip()
-    if copier_deps_installed:
-        assert output == "Copied! 😽  kissing_cat"
-    else:
-        assert output == "😽  kissing_cat"
-    assert ret == 0
-
-
-def test_random_no_copy(capsys: pytest.LogCaptureFixture) -> None:
-    # Arrange
-    args = "--random --no-copy"
-    random.seed(123)
-
-    # Act
-    ret = cli.main(shlex.split(args))
-
-    # Assert
-    output = capsys.readouterr().out.rstrip()
-    assert output == "😽  kissing_cat"
-    assert ret == 0
-
-
-def test_no_name(capsys: pytest.LogCaptureFixture) -> None:
-    # Arrange
-    args = "--search"
-
-    # Act
-    ret = cli.main(shlex.split(args))
-
-    # Assert
-    output = capsys.readouterr().out.rstrip()
-    assert output == ""
-    assert ret != 0

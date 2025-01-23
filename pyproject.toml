@@ -92,6 +92,7 @@ lint.ignore = [
 ]
 lint.flake8-import-conventions.aliases.datetime = "dt"
 lint.flake8-import-conventions.banned-from = [ "datetime" ]
+lint.flake8-pytest-style.parametrize-names-type = "csv"
 lint.isort.known-first-party = [ "em" ]
 lint.isort.required-imports = [ "from __future__ import annotations" ]
 
