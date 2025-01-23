@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-import argparse
 import random
-from unittest.mock import MagicMock, call, patch
+import shlex
 
 import pytest
 
@@ -20,69 +19,48 @@ copier_deps_installed = try_copy_to_clipboard("checking if copy works")
         ":Star:",
     ],
 )
-@patch("em.cli.argparse.ArgumentParser.parse_args")
-@patch("builtins.print")
-def test_star(mock_print: MagicMock, mock_argparse: MagicMock, test_name: str) -> None:
-    # Arrange
-    mock_argparse.return_value = argparse.Namespace(
-        name=[test_name], no_copy=None, search=False, random=False
-    )
-
+def test_star(capsys: pytest.LogCaptureFixture, test_name: str) -> None:
     # Act
-    with pytest.raises(SystemExit) as e:
-        cli.main()
+    ret = cli.main(shlex.split(test_name))
 
     # Assert
+    output = capsys.readouterr().out.rstrip()
     if copier_deps_installed:
-        mock_print.assert_called_once_with("Copied! ⭐")
+        assert output == "Copied! ⭐"
     else:
-        mock_print.assert_called_once_with("⭐")
-    assert e.type is SystemExit
-    assert e.value.code == 0
+        assert output == "⭐"
+    assert ret == 0
 
 
-@patch("em.cli.argparse.ArgumentParser.parse_args")
-@patch("builtins.print")
-def test_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
+def test_not_found(capsys: pytest.LogCaptureFixture) -> None:
     # Arrange
-    mock_argparse.return_value = argparse.Namespace(
-        name=["xxx"], no_copy=None, search=False, random=False
-    )
-
-    with pytest.raises(SystemExit) as e:
-        cli.main()
-
-    # Assert
-    mock_print.assert_not_called()
-    assert e.type is SystemExit
-    assert e.value.code == 1
-
-
-@patch("em.cli.argparse.ArgumentParser.parse_args")
-@patch("builtins.print")
-def test_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
-    # Arrange
-    mock_argparse.return_value = argparse.Namespace(
-        name=["star"], no_copy=True, search=False, random=False
-    )
+    args = "xxx --no-copy"
 
     # Act
-    with pytest.raises(SystemExit) as e:
-        cli.main()
+    ret = cli.main(shlex.split(args))
 
     # Assert
-    mock_print.assert_called_once_with("⭐")
-    assert e.type is SystemExit
-    assert e.value.code == 0
+    output = capsys.readouterr().out.rstrip()
+    assert output == ""
+    assert ret != 0
 
 
-@patch("em.cli.argparse.ArgumentParser.parse_args")
-@patch("builtins.print")
-def test_search_star(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
+def test_no_copy(capsys: pytest.LogCaptureFixture) -> None:
     # Arrange
-    mock_argparse.return_value = argparse.Namespace(
-        name=["star"], no_copy=None, search=True, random=False
-    )
+    args = "star --no-copy"
+
+    # Act
+    ret = cli.main(shlex.split(args))
+
+    # Assert
+    output = capsys.readouterr().out.rstrip()
+    assert output == "⭐"
+    assert ret == 0
+
+
+def test_search_star(capsys: pytest.LogCaptureFixture) -> None:
+    # Arrange
+    args = "--search star"
     expected = (
         "💫  dizzy",
         "⭐  star",
@@ -90,132 +68,99 @@ def test_search_star(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
     )
 
     # Act
-    with pytest.raises(SystemExit) as e:
-        cli.main()
+    ret = cli.main(shlex.split(args))
 
     # Assert
+    output = capsys.readouterr().out.rstrip()
     for arg in expected:
-        assert call(arg) in mock_print.call_args_list
-    assert e.type is SystemExit
-    assert e.value.code == 0
+        assert arg in output
+    assert ret == 0
 
 
-@patch("em.cli.argparse.ArgumentParser.parse_args")
-@patch("builtins.print")
-def test_search_single_result_is_copied(
-    mock_print: MagicMock, mock_argparse: MagicMock
-) -> None:
+def test_search_single_result_is_copied(capsys: pytest.LogCaptureFixture) -> None:
     # Arrange
-    mock_argparse.return_value = argparse.Namespace(
-        name=["ukraine"], no_copy=None, search=True, random=False
-    )
+    args = "--search ukraine"
 
     # Act
-    with pytest.raises(SystemExit) as e:
-        cli.main()
+    ret = cli.main(shlex.split(args))
 
     # Assert
+    output = capsys.readouterr().out.rstrip()
     if copier_deps_installed:
-        mock_print.assert_called_once_with("Copied! 🇺🇦  flag_ukraine")
+        assert output == "Copied! 🇺🇦  flag_ukraine"
     else:
-        mock_print.assert_called_once_with("🇺🇦  flag_ukraine")
-    assert e.type is SystemExit
-    assert e.value.code == 0
+        assert output == "🇺🇦  flag_ukraine"
+    assert ret == 0
 
 
-@patch("em.cli.argparse.ArgumentParser.parse_args")
-@patch("builtins.print")
-def test_search_not_found(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
+def test_search_not_found(capsys: pytest.LogCaptureFixture) -> None:
     # Arrange
-    mock_argparse.return_value = argparse.Namespace(
-        name=["twenty_o_clock"], no_copy=None, search=True, random=False
-    )
+    args = "--search twenty_o_clock"
 
     # Act
-    with pytest.raises(SystemExit) as e:
-        cli.main()
+    ret = cli.main(shlex.split(args))
 
     # Assert
-    mock_print.assert_not_called()
-    assert e.type is SystemExit
-    assert e.value.code == 1
+    output = capsys.readouterr().out.rstrip()
+    assert output == ""
+    assert ret != 0
 
 
-@patch("em.cli.argparse.ArgumentParser.parse_args")
-@patch("builtins.print")
-def test_search_multi_word(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
+def test_search_multi_word(capsys: pytest.LogCaptureFixture) -> None:
     # Arrange
-    mock_argparse.return_value = argparse.Namespace(
-        name=["big", "tent"], no_copy=None, search=True, random=False
-    )
+    args = "--search big tent"
 
     # Act
-    with pytest.raises(SystemExit) as e:
-        cli.main()
+    ret = cli.main(shlex.split(args))
 
     # Assert
+    output = capsys.readouterr().out.rstrip()
     if copier_deps_installed:
-        mock_print.assert_called_once_with("Copied! 🎪  circus_tent")
+        assert output == "Copied! 🎪  circus_tent"
     else:
-        mock_print.assert_called_once_with("🎪  circus_tent")
-    assert e.type is SystemExit
-    assert e.value.code == 0
+        assert output == "🎪  circus_tent"
+    assert ret == 0
 
 
-@patch("em.cli.argparse.ArgumentParser.parse_args")
-@patch("builtins.print")
-def test_random(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
+def test_random(capsys: pytest.LogCaptureFixture) -> None:
     # Arrange
-    mock_argparse.return_value = argparse.Namespace(
-        name=None, no_copy=None, search=False, random=True
-    )
+    args = "--random"
     random.seed(123)
 
     # Act
-    with pytest.raises(SystemExit) as e:
-        cli.main()
+    ret = cli.main(shlex.split(args))
 
     # Assert
+    output = capsys.readouterr().out.rstrip()
     if copier_deps_installed:
-        mock_print.assert_called_once_with("Copied! 😽  kissing_cat")
+        assert output == "Copied! 😽  kissing_cat"
     else:
-        mock_print.assert_called_once_with("😽  kissing_cat")
-    assert e.type is SystemExit
-    assert e.value.code == 0
+        assert output == "😽  kissing_cat"
+    assert ret == 0
 
 
-@patch("em.cli.argparse.ArgumentParser.parse_args")
-@patch("builtins.print")
-def test_random_no_copy(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
+def test_random_no_copy(capsys: pytest.LogCaptureFixture) -> None:
     # Arrange
-    mock_argparse.return_value = argparse.Namespace(
-        name=None, no_copy=True, search=False, random=True
-    )
+    args = "--random --no-copy"
     random.seed(123)
 
     # Act
-    with pytest.raises(SystemExit) as e:
-        cli.main()
+    ret = cli.main(shlex.split(args))
 
     # Assert
-    mock_print.assert_called_once_with("😽  kissing_cat")
-    assert e.type is SystemExit
-    assert e.value.code == 0
+    output = capsys.readouterr().out.rstrip()
+    assert output == "😽  kissing_cat"
+    assert ret == 0
 
 
-@patch("em.cli.argparse.ArgumentParser.parse_args")
-@patch("builtins.print")
-def test_no_name(mock_print: MagicMock, mock_argparse: MagicMock) -> None:
+def test_no_name(capsys: pytest.LogCaptureFixture) -> None:
     # Arrange
-    mock_argparse.return_value = argparse.Namespace(
-        name=[], no_copy=None, search=True, random=False
-    )
+    args = "--search"
 
     # Act
-    with pytest.raises(SystemExit) as e:
-        cli.main()
+    ret = cli.main(shlex.split(args))
 
     # Assert
-    mock_print.assert_not_called()
-    assert e.type is SystemExit
-    assert e.value.code == "Error: the 'name' argument is required"
+    output = capsys.readouterr().out.rstrip()
+    assert output == ""
+    assert ret != 0

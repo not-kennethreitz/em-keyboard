@@ -6,7 +6,6 @@ from __future__ import annotations
 
 import argparse
 import os
-import sys
 
 from em import (
     CUSTOM_EMOJI_PATH,
@@ -36,12 +35,12 @@ def parse_args(arg_list: list[str] | None):
     return args
 
 
-def main(arg_list: list[str] | None = None) -> None:
+def main(arg_list: list[str] | None = None) -> str | int:
     args = parse_args(arg_list)
     no_copy = args.no_copy
 
     if not args.name and not args.random:
-        sys.exit("Error: the 'name' argument is required")
+        return "Error: the 'name' argument is required"
 
     # Grab the lookup dictionary.
     lookup = parse_emojis()
@@ -59,7 +58,7 @@ def main(arg_list: list[str] | None = None) -> None:
         else:
             copied = False
         print(f"Copied! {emoji}  {name}" if copied else f"{emoji}  {name}")
-        sys.exit(0)
+        return 0
 
     names = tuple(map(clean_name, args.name))
 
@@ -87,9 +86,9 @@ def main(arg_list: list[str] | None = None) -> None:
                 pass
 
         if len(found):
-            sys.exit(0)
+            return 0
         else:
-            sys.exit(1)
+            return 1
 
     # Process the results.
     results = tuple(translate(lookup, name) for name in names)
@@ -112,7 +111,7 @@ def main(arg_list: list[str] | None = None) -> None:
     if print_results:
         print(f"Copied! {print_results}" if copied else print_results)
 
-    sys.exit(int(missing))
+    return int(missing)
 
 
 if __name__ == "__main__":
