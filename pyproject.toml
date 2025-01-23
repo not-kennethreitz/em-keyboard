@@ -59,6 +59,9 @@ exclude = [
   "src/em/emoji-en-US.json", # temporary copy of "src/em/emojis.json"
 ]
 
+[tool.hatch.build.targets.wheel]
+packages = [ "src/em" ]
+
 [tool.hatch.version.raw-options]
 local_scheme = "no-local-version"
 
