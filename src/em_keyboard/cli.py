@@ -19,7 +19,7 @@ from em_keyboard import (
 )
 
 
-def main() -> None:
+def parse_args(arg_list: list[str] | None):
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
@@ -32,7 +32,12 @@ def main() -> None:
     parser.add_argument(
         "-V", "--version", action="version", version=f"%(prog)s {__version__}"
     )
-    args = parser.parse_args()
+    args = parser.parse_args(arg_list)
+    return args
+
+
+def main(arg_list: list[str] | None = None) -> None:
+    args = parse_args(arg_list)
     no_copy = args.no_copy
 
     if not args.name and not args.random:
