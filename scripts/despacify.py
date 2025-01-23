@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import json
 
-from em import EmojiDict, clean_name, parse_emojis  # type: ignore[import]
+from em.cli import EmojiDict, clean_name, parse_emojis  # type: ignore[import]
 
 INPUT_EMOJILIB_PATH = "src/em/emoji-en-US.json"
 OUTPUT_EMOJI_PATH = "src/em/emojis.json"

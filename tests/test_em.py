@@ -5,9 +5,9 @@ import shlex
 
 import pytest
 
-from em import cli, try_copy_to_clipboard  # type: ignore[import-untyped]
+from em import cli  # type: ignore[import-untyped]
 
-copier_deps_installed = try_copy_to_clipboard("checking if copy works")
+copier_deps_installed = cli.try_copy_to_clipboard("checking if copy works")
 
 
 @pytest.mark.parametrize(
