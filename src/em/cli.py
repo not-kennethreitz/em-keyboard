@@ -6,8 +6,13 @@ from __future__ import annotations
 
 import argparse
 import os
+import sys
 from importlib.resources import files
-from importlib.resources.abc import Traversable
+
+if sys.version_info >= (3, 11):
+    from importlib.resources.abc import Traversable
+else:
+    from importlib.abc import Traversable
 
 from em import __version__
 
